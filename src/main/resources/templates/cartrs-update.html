@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Исправление типа картриджа</title>
+</head>
+<body>
+<form action="#" th:action="@{/cartrs-update}" th:object="${cartrs}" method="post">
+    <table>
+        <tbody>
+        <tr>
+            <td><input readonly type="hidden" th:field="*{idCartrs}"></td>
+        </tr>
+        <tr>
+            <th for="chip">Чип</th>
+            <td><select th:field="*{chip}" id="chip">
+                <option value="есть">есть</option>
+                <option value="нет">нет</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <th for="typeCartr">Тип</th>
+            <td><input type="text" th:field="*{typeCartr}" id="type_cartr" placeholder="typeCartr"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Исправить тип картриджа"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

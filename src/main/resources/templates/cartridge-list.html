@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"><!--th:style="'font-weight: bold;'"-->
+<head>
+    <meta charset="UTF-8">
+    <title>Картриджи</title>
+</head>
+<body>
+<div th:switch="${cartridges}">
+    <h2 th:case="null">Картриджи не найдены!</h2>
+    <div th:case="*">
+        <h2>Картриджи</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Инвентарный номер</th>
+                <th>Тип Картриджа</th>
+                <th>Чип</th>
+                <th>Ресурс</th>
+                <th>Город</th>
+                <th>Исполнитель</th>
+                <th>Комментарии</th>
+                <th colspan="2">Операции</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartridge : ${cartridges}">
+                <td th:text="${cartridge.id}"></td>
+                <td th:text="${cartridge.inventoryNumber}"></td>
+                <td th:each="cart:${cartrs}"
+                    th:switch="${cart.idCartrs}"
+                    th:case="${cartridge.cartrsIdCartrs}"
+                    th:text="${cart.typeCartr}"></td>
+                <td th:each="cart:${cartrs}"
+                    th:switch="${cart.idCartrs}"
+                    th:case="${cartridge.cartrsIdCartrs}"
+                    th:text="${cart.chip}">
+                </td>
+                <td th:text="${cartridge.resource}"></td>
+                <td th:text="${cartridge.city}"></td>
+                <td th:text="${cartridge.executor}"></td>
+                <td th:text="${cartridge.comments}"></td>
+                <td><a th:href="@{cartridge-moreInfo/{id}(id=${cartridge.id})}">Подробнее</a></td>
+                <td><a th:href="@{cartridge-update/{id}(id=${cartridge.id})}">Исправить</a></td>
+                <td><a th:href="@{cartridge-delete/{id}(id=${cartridge.id})}">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/cartridge-create">Создать картридж</a></p>
+</div>
+</body>
+<body>
+<div th:switch="${cartrs}">
+    <h2 th:case="null">Типы картриджей не найдены!</h2>
+    <div th:case="*">
+        <h2>Типы картриджей</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id Типов картриджей</th>
+                <th>Чип</th>
+                <th>Тип картриджа</th>
+                <th colspan="2">Операции</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartrs : ${cartrs}">
+                <td th:text="${cartrs.idCartrs}"></td>
+                <td th:text="${cartrs.chip}"></td>
+                <td th:text="${cartrs.typeCartr}"></td>
+                <td><a th:href="@{cartrs-update/{idCartrs}(idCartrs=${cartrs.idCartrs})}">Исправить</a></td>
+                <td><a th:href="@{cartrs-delete/{idCartrs}(idCartrs=${cartrs.idCartrs})}">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/cartrs-create">Создать тип картриджа</a></p>
+    <p><a href="/history">История</a></p>
+</div>
+</body>
+</html>

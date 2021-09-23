@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробнее о картридже</title>
+</head>
+<body>
+<div th:switch="${cartridges}">
+    <div th:case="*">
+        <h2>История картриджа</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id Истории</th>
+                <th>Дата Статуса</th>
+                <th>Статус</th>
+                <th>Инвентарный номер</th>
+                <th colspan="2">Операции</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hist:${history}" th:switch="${hist.cartridgesId}" th:case="*{id}">
+                <td th:text="${hist.idHistory}"></td>
+                <td th:text="${hist.dateOfStatus}"></td>
+                <td th:text="${hist.status}"></td>
+                <td th:each="cart:${cartridges}" th:switch="${cart.id}" th:case="${hist.cartridgesId}"
+                    th:text="${cart.inventoryNumber}"></td>
+                <td><a th:href="@{history-update/{idHistory}/{id}(idHistory=${hist.idHistory},id=${hist.cartridgesId})}">Исправить</a></td>
+                <td><a th:href="@{history-delete/{idHistory}/{id}(idHistory=${hist.idHistory},id=${hist.cartridgesId})}">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{/history-create/{id}(id=${id})}">Создать историю</a></p>
+    <p><a th:href="@{/cartridges}">Вернуться на картриджи</a></p>
+</div>
+</body>
+</html>

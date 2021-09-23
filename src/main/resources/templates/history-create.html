@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание истории</title>
+</head>
+<body>
+<form action="#" th:action="@{/history-create/{id}(id=${id})}" th:object="${history}" method="post">
+    <table>
+        <tbody>
+        <tr>
+            <td><input readonly type="hidden" th:field="*{idHistory}"></td>
+        </tr>
+        <tr>
+            <th for="dateOfStatus">Дата статуса</th>
+            <td><input type="date" th:field="*{dateOfStatus}" id="dateOfStatus" placeholder="dateOfStatus"></td>
+        </tr>
+        <tr>
+            <th for="status">Статус</th>
+            <td>
+                <select th:field="*{status}" id="status">
+                <option value="в заправке">в заправке</option>
+                <option value="в работе">в работе</option>
+                <option value="на складе">на складе</option>
+                <option value="списан">списан</option>
+                <option value="возврат">возврат</option>
+                </select>
+            </td>
+        </tr>
+            <td>Выбранный картридж</td>
+            <td><select th:field="*{cartridgesId}" id="cartridgesId">
+                <option th:each="cartridge:${cartridges}"
+                        th:value="${cartridge.id}"
+                        th:text="${cartridge.id}">
+                </option>
+            </select>
+            </td>
+        <tr>
+            <td><input type="submit" value="Сохранить историю"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

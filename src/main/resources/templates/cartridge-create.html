@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать картридж</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/cartridge-create}" th:object="${cartridges}" method="post">
+    <table>
+        <tbody>
+        <tr>
+            <th for="inventoryNumber">Инвентарный номер</th>
+            <td><input type="text" th:field="*{inventoryNumber}" id="inventoryNumber" placeholder="inventoryNumber">
+            </td>
+        </tr>
+        <tr>
+            <th for="resource">Ресурс</th>
+            <td><input type="text" th:field="*{resource}" id="resource" placeholder="resource"></td>
+        </tr>
+        <tr>
+            <th for="city">Отдел</th>
+            <td><input type="text" th:field="*{city}" id="city" placeholder="city"></td>
+        </tr>
+        <tr>
+            <th for="executor">Исполнитель</th>
+            <td><input type="text" th:field="*{executor}" id="executor" placeholder="executor"></td>
+        </tr>
+        <tr>
+            <th for="comments">Описание</th>
+            <td><input type="text" th:field="*{comments}" id="comments" placeholder="comments"></td>
+        </tr>
+        <tr>
+            <td>Выберите тип картриджа</td>
+            <td><select th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs">
+                <option th:each="cart : ${cartrs}"
+                        th:value="${cart.idCartrs}"
+                        th:text="${cart.typeCartr}">
+                </option>
+            </select>
+            </td>
+        </tr>
+            <td><input type="submit" value="Создать картридж"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>
