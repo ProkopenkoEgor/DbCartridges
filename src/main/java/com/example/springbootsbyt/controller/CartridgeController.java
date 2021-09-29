@@ -46,7 +46,7 @@ public class CartridgeController {
     }
 
     @GetMapping("/cartridges")
-    public String findAll(Model model, String status, Integer id, History history1) {
+    public String findAll(Model model) {
         List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
         List<Cartrs> cartrs = cartrsServiceImpl.findAll();
         List<History> history = historyServiceImpl.findAll();
@@ -55,8 +55,6 @@ public class CartridgeController {
         model.addAttribute("cartrs", cartrs);
         model.addAttribute("history", history);
         model.addAttribute("printers", printers);
-//        List<Cartridges> cartridges1 = cartridgeServiceImpl.findByStatus(count);
-//        model.addAttribute("cartridges", cartridges1);
         return "cartridge-list";
 
     }
@@ -72,7 +70,6 @@ public class CartridgeController {
 
     @PostMapping("/cartridge-create")
     public String createCartridge(Cartridges cartridge) {
-        cartridge.setCount(0);
         cartridgeServiceImpl.saveCartridge(cartridge);
         return "redirect:/cartridges";
     }
@@ -109,8 +106,6 @@ public class CartridgeController {
     }
     @GetMapping("/printers-create")
     public String createPrintersForm(Printers printers) {
-//        List<Printers> printer = printersServiceImpl.findAll();
-//        model.addAttribute("printer",printer);
         return "printers-create";
     }
 

@@ -60,16 +60,18 @@ public class HistoryController {
     }
 
     @PostMapping("/history-update/{id}")
-    public String updateHistory(@PathVariable("id") Integer id, History history){
-        historyServiceImpl.saveHistory(history);
+    public String updateHistory(@PathVariable("id") Integer id, History history1){
+        historyServiceImpl.saveHistoryUpdate(history1);
         String str = Integer.toString(id);
         return"redirect:/cartridge-moreInfo/" + str;
     }
 
     @GetMapping("/cartridge-moreInfo/history-delete/{idHistory}/{id}")
     public String deleteHistory(@PathVariable("idHistory") Integer idHistory, @PathVariable("id") Integer id){
-        historyServiceImpl.deleteById(idHistory);
+        History history = historyServiceImpl.findById(idHistory);
+        historyServiceImpl.deleteById(idHistory,history);
         String str2 = Integer.toString(id);
         return "redirect:/cartridge-moreInfo/" + str2;
     }
+
 }

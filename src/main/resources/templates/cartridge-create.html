@@ -30,6 +30,10 @@
             <td><input type="text" th:field="*{comments}" id="comments" placeholder="comments"></td>
         </tr>
         <tr>
+            <th for="count">Количество заправок</th>
+            <td><input readonly type="number" th:field="*{count}" th:value="*{count=0}" id="count"></td>
+        </tr>
+        <tr>
             <td>Выберите тип картриджа</td>
             <td><select th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs">
                 <option th:each="cart : ${cartrs}"

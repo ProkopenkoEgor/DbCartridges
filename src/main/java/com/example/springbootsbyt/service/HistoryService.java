@@ -13,5 +13,8 @@ public interface HistoryService {
 
     public History saveHistory(History history);
 
-    public void deleteById(Integer id);
+    public History saveHistoryUpdate(History history);
+
+    public void deleteById(Integer id, History history);
+
 }

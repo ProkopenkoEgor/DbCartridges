@@ -40,7 +40,7 @@ public class HistoryServiceImpl implements HistoryService {
             cartridge = cartridges1.get(i);
             if (cartridge.getId() == history.getCartridgesId()) {
                 if (str3.equalsIgnoreCase("в заправке") == true) {
-                    Integer count = cartridge.getCount();//?????
+                    Integer count = cartridge.getCount();
                     count++;
                     cartridge.setCount(count);
                     cartridgeServiceImpl.saveCartridge(cartridge);
@@ -50,9 +50,45 @@ public class HistoryServiceImpl implements HistoryService {
         return historyRepository.save(history);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Integer id,History history) {
+        String str4 = history.getStatus();
+        Cartridges cartridge = null;
+        List<Cartridges> cartridges1 = cartridgeServiceImpl.findAll();
+        for (int i = 0; i < cartridges1.size(); i++) {
+            cartridge = cartridges1.get(i);
+            if (cartridge.getId() == history.getCartridgesId()) {
+                if (str4.equalsIgnoreCase("в заправке") == true) {
+                    Integer count = cartridge.getCount();
+                    count--;
+                    cartridge.setCount(count);
+                    cartridgeServiceImpl.saveCartridge(cartridge);
+                }
+            }
+        }
         historyRepository.deleteById(id);
     }
 
-
+    public History saveHistoryUpdate(History history1) {
+        String str3 = history1.getStatus();
+        Cartridges cartridge = null;
+        List<Cartridges> cartridges1 = cartridgeServiceImpl.findAll();
+        for (int i = 0; i < cartridges1.size(); i++) {
+            cartridge = cartridges1.get(i);
+            if (cartridge.getId() == history1.getCartridgesId()) {
+                if (str3.equalsIgnoreCase("в заправке") == true) {
+                    Integer count = cartridge.getCount();
+                    count++;
+                    cartridge.setCount(count);
+                    cartridgeServiceImpl.saveCartridge(cartridge);
+                }
+                else {
+                    Integer count = cartridge.getCount();
+                    count--;
+                    cartridge.setCount(count);
+                    cartridgeServiceImpl.saveCartridge(cartridge);
+                }
+            }
+        }
+        return historyRepository.save(history1);
+    }
 }
