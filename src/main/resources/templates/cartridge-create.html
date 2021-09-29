@@ -5,7 +5,6 @@
     <title>Создать картридж</title>
 </head>
 <body>
-
 <form action="#" th:action="@{/cartridge-create}" th:object="${cartridges}" method="post">
     <table>
         <tbody>
@@ -36,6 +35,16 @@
                 <option th:each="cart : ${cartrs}"
                         th:value="${cart.idCartrs}"
                         th:text="${cart.typeCartr}">
+                </option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Выберите тип принтера</td>
+            <td><select th:field="*{printersIdPrinters}" id="printersIdPrinters">
+                <option th:each="print : ${printers}"
+                        th:value="${print.idPrinters}"
+                        th:text="${print.typePrinters}">
                 </option>
             </select>
             </td>

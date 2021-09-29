@@ -1,6 +1,8 @@
 package com.example.springbootsbyt.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "history")
+@NoArgsConstructor
 public class History {
 
     @Id
@@ -22,4 +25,47 @@ public class History {
 
     @Column(name = "cartridges_id")
     private Integer cartridgesId;
+
+    @Column(name = "vzapravke")
+    private Integer vzapravke;
+
+    public Integer getIdHistory() {
+        return idHistory;
+    }
+
+    public void setIdHistory(Integer idHistory) {
+        this.idHistory = idHistory;
+    }
+
+    public Date getDateOfStatus() {
+        return dateOfStatus;
+    }
+
+    public void setDateOfStatus(Date dateOfStatus) {
+        this.dateOfStatus = dateOfStatus;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getCartridgesId() {
+        return cartridgesId;
+    }
+
+    public void setCartridgesId(Integer cartridgesId) {
+        this.cartridgesId = cartridgesId;
+    }
+
+    public Integer getVzapravke() {
+        return vzapravke;
+    }
+
+    public void setVzapravke(Integer vzapravke) {
+        this.vzapravke = vzapravke;
+    }
 }

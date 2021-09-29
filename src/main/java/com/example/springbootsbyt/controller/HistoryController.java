@@ -2,9 +2,9 @@ package com.example.springbootsbyt.controller;
 
 import com.example.springbootsbyt.model.Cartridges;
 import com.example.springbootsbyt.model.History;
-import com.example.springbootsbyt.service.CartridgeService;
 import com.example.springbootsbyt.service.impl.CartridgeServiceImpl;
 import com.example.springbootsbyt.service.impl.HistoryServiceImpl;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
-
+@Data
 @Controller
 public class HistoryController {
     private final HistoryServiceImpl historyServiceImpl;
@@ -43,9 +44,9 @@ public class HistoryController {
     }
 
     @PostMapping("/history-create/{id}")
-    public String createHistory(@PathVariable("id") Integer id, History history) {
-        historyServiceImpl.saveHistory(history);
+    public String createHistory(@PathVariable("id") Integer id,History history) {
         String str1 = Integer.toString(id);
+        historyServiceImpl.saveHistory(history);
         return "redirect:/cartridge-moreInfo/" + str1;
     }
 
@@ -55,7 +56,6 @@ public class HistoryController {
         List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
         model.addAttribute("history", history);
         model.addAttribute("cartridges", cartridges);
-//        model.addAttribute("idHistory",idHistory);
         return "history-update";
     }
 

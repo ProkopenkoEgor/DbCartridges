@@ -1,6 +1,8 @@
 package com.example.springbootsbyt.service.impl;
 
+import com.example.springbootsbyt.model.Cartridges;
 import com.example.springbootsbyt.model.History;
+import com.example.springbootsbyt.repository.CartridgeRepository;
 import com.example.springbootsbyt.repository.HistoryRepository;
 import com.example.springbootsbyt.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +14,17 @@ import java.util.List;
 public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryRepository historyRepository;
+    private final CartridgeRepository cartridgeRepository;
+    private final CartridgeServiceImpl cartridgeServiceImpl;
 
     @Autowired
-    public HistoryServiceImpl(HistoryRepository historyRepository) {
+    public HistoryServiceImpl(HistoryRepository historyRepository, CartridgeRepository cartridgeRepository, CartridgeServiceImpl cartridgeServiceImpl) {
         this.historyRepository = historyRepository;
+        this.cartridgeRepository = cartridgeRepository;
+        this.cartridgeServiceImpl = cartridgeServiceImpl;
     }
 
-    public History findById(int id) {
+    public History findById(Integer id) {
         return historyRepository.findById(id).orElse(null);
     }
 
@@ -27,10 +33,26 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     public History saveHistory(History history) {
+        String str3 = history.getStatus();
+        Cartridges cartridge = null;
+        List<Cartridges> cartridges1 = cartridgeServiceImpl.findAll();
+        for (int i = 0; i < cartridges1.size(); i++) {
+            cartridge = cartridges1.get(i);
+            if (cartridge.getId() == history.getCartridgesId()) {
+                if (str3.equalsIgnoreCase("в заправке") == true) {
+                    Integer count = cartridge.getCount();//?????
+                    count++;
+                    cartridge.setCount(count);
+                    cartridgeServiceImpl.saveCartridge(cartridge);
+                }
+            }
+        }
         return historyRepository.save(history);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Integer id) {
         historyRepository.deleteById(id);
     }
+
+
 }

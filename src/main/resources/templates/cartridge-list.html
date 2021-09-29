@@ -15,11 +15,13 @@
                 <th>Id</th>
                 <th>Инвентарный номер</th>
                 <th>Тип Картриджа</th>
+                <th>Тип Принтера</th>
                 <th>Чип</th>
                 <th>Ресурс</th>
                 <th>Город</th>
                 <th>Исполнитель</th>
                 <th>Комментарии</th>
+                <th>Колличество заправок</th>
                 <th colspan="2">Операции</th>
             </tr>
             </thead>
@@ -31,6 +33,10 @@
                     th:switch="${cart.idCartrs}"
                     th:case="${cartridge.cartrsIdCartrs}"
                     th:text="${cart.typeCartr}"></td>
+                <td th:each="print:${printers}"
+                    th:switch="${print.idPrinters}"
+                    th:case="${cartridge.printersIdPrinters}"
+                    th:text="${print.typePrinters}"></td>
                 <td th:each="cart:${cartrs}"
                     th:switch="${cart.idCartrs}"
                     th:case="${cartridge.cartrsIdCartrs}"
@@ -40,6 +46,7 @@
                 <td th:text="${cartridge.city}"></td>
                 <td th:text="${cartridge.executor}"></td>
                 <td th:text="${cartridge.comments}"></td>
+                <td th:text="${cartridge.count}"></td>
                 <td><a th:href="@{cartridge-moreInfo/{id}(id=${cartridge.id})}">Подробнее</a></td>
                 <td><a th:href="@{cartridge-update/{id}(id=${cartridge.id})}">Исправить</a></td>
                 <td><a th:href="@{cartridge-delete/{id}(id=${cartridge.id})}">Удалить</a></td>
@@ -49,8 +56,6 @@
     </div>
     <p><a href="/cartridge-create">Создать картридж</a></p>
 </div>
-</body>
-<body>
 <div th:switch="${cartrs}">
     <h2 th:case="null">Типы картриджей не найдены!</h2>
     <div th:case="*">
@@ -77,6 +82,30 @@
     </div>
     <p><a href="/cartrs-create">Создать тип картриджа</a></p>
     <p><a href="/history">История</a></p>
+</div>
+<div th:switch="${printers}">
+    <h2 th:case="null">Типы принтеров не найдены!</h2>
+    <div th:case="*">
+        <h2>Типы принтеров</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id принтеров</th>
+                <th>Тип принтера</th>
+                <th colspan="2">Операции</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="print : ${printers}">
+                <td th:text="${print.idPrinters}"></td>
+                <td th:text="${print.typePrinters}"></td>
+                <td><a th:href="@{printers-update/{id}(id=${print.idPrinters})}">Исправить</a></td>
+                <td><a th:href="@{printers-delete/{id}(id=${print.idPrinters})}">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/printers-create">Создать тип принтера</a></p>
 </div>
 </body>
 </html>

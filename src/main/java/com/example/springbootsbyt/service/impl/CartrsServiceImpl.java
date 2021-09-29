@@ -19,7 +19,7 @@ public class CartrsServiceImpl implements CartrsService {
         this.cartrsRepository = cartrsRepository;
     }
 
-    public Cartrs findById(int id){
+    public Cartrs findById(Integer id){
         return cartrsRepository.findById(id).orElse(null);
     }
     public List<Cartrs> findAll(){
@@ -29,7 +29,7 @@ public class CartrsServiceImpl implements CartrsService {
         return cartrsRepository.save(cartrs);
     }
 
-    public void deleteById(int id){
+    public void deleteById(Integer id){
         cartrsRepository.deleteById(id);
     }
 }

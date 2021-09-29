@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Исправление типа принтера</title>
+</head>
+<body>
+<form action="#" th:action="@{/printers-update}" th:object="${printers}" method="post">
+    <table>
+        <tbody>
+        <tr>
+            <td><input readonly type="hidden" th:field="*{idPrinters}"></td>
+        </tr>
+        <tr>
+            <th for="typePrinters">Тип принтера</th>
+            <td><input type="text" th:field="*{typePrinters}" id="typePrinters"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Исправить картридж"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

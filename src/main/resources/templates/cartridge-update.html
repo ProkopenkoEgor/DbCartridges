@@ -42,6 +42,16 @@
             </td>
         </tr>
         <tr>
+            <td>Выберите тип принтера</td>
+            <td><select th:field="*{printersIdPrinters}" id="printersIdPrinters">
+                <option th:each="print : ${printers}"
+                        th:value="${print.idPrinters}"
+                        th:text="${print.typePrinters}">
+                </option>
+            </select>
+            </td>
+        </tr>
+        <tr>
             <td><input type="submit" value="Исправить картридж"></td>
         </tr>
         </tbody>
