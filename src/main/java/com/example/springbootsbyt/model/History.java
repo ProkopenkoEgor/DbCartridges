@@ -26,8 +26,6 @@ public class History {
     @Column(name = "cartridges_id")
     private Integer cartridgesId;
 
-    @Column(name = "vzapravke")
-    private Integer vzapravke;
 
     public Integer getIdHistory() {
         return idHistory;
@@ -61,11 +59,4 @@ public class History {
         this.cartridgesId = cartridgesId;
     }
 
-    public Integer getVzapravke() {
-        return vzapravke;
-    }
-
-    public void setVzapravke(Integer vzapravke) {
-        this.vzapravke = vzapravke;
-    }
 }

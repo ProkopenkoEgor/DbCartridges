@@ -19,5 +19,27 @@ public class Cartrs {
     @Column(name = "type_cartr")
     private String typeCartr;
 
+    public Integer getIdCartrs() {
+        return idCartrs;
+    }
 
+    public void setIdCartrs(Integer idCartrs) {
+        this.idCartrs = idCartrs;
+    }
+
+    public String getChip() {
+        return chip;
+    }
+
+    public void setChip(String chip) {
+        this.chip = chip;
+    }
+
+    public String getTypeCartr() {
+        return typeCartr;
+    }
+
+    public void setTypeCartr(String typeCartr) {
+        this.typeCartr = typeCartr;
+    }
 }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"><!--th:style="'font-weight: bold;'"-->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Картриджи</title>
+    <title>Результат поиска</title>
 </head>
 <body>
 <div th:switch="${cartridges}">
@@ -40,23 +40,22 @@
                 <td th:each="cart:${cartrs}"
                     th:switch="${cart.idCartrs}"
                     th:case="${cartridge.cartrsIdCartrs}"
-                    th:text="${cart.chip}">
-                </td>
+                    th:text="${cart.chip}"></td>
                 <td th:text="${cartridge.resource}"></td>
                 <td th:text="${cartridge.city}"></td>
                 <td th:text="${cartridge.executor}"></td>
                 <td th:text="${cartridge.comments}"></td>
                 <td th:text="${cartridge.count}"></td>
-                <td><a th:href="@{cartridge-moreInfo/{id}(id=${cartridge.id})}">Подробнее</a></td>
-                <td><a th:href="@{cartridge-update/{id}(id=${cartridge.id})}">Исправить</a></td>
-                <td><a th:href="@{cartridge-delete/{id}(id=${cartridge.id})}">Удалить</a></td>
+<!--                <td><a th:href="@{cartridge-moreInfo/{id}(id=${cartridge.id})}">Подробнее</a></td>-->
+<!--                <td><a th:href="@{cartridge-update/{id}(id=${cartridge.id})}">Исправить</a></td>-->
+<!--                <td><a th:href="@{cartridge-delete/{id}(id=${cartridge.id})}">Удалить</a></td>-->
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/cartridge-create">Создать картридж</a></p>
-    <p><a href="/cartrs">Перейти на типы картриджей</a></p>
-    <p><a href="/printers">Перейти на типы принтеров</a></p>
+<!--    <p><a href="/cartridge-create">Создать картридж</a></p>-->
+<!--    <p><a href="/cartrs">Перейти на типы картриджей</a></p>-->
+<!--    <p><a href="/printers">Перейти на типы принтеров</a></p>-->
     <p><a href="/Main">Вернуться на главную</a></p>
 </div>
 </body>

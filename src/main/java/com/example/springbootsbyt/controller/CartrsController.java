@@ -1,7 +1,9 @@
 package com.example.springbootsbyt.controller;
 
+import com.example.springbootsbyt.model.Cartridges;
 import com.example.springbootsbyt.model.Cartrs;
-//import com.example.springbootsbyt.entity.Cartrs;
+import com.example.springbootsbyt.model.History;
+import com.example.springbootsbyt.model.Printers;
 import com.example.springbootsbyt.service.impl.CartrsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class CartrsController {
     private final CartrsServiceImpl cartrsServiceImpl;
@@ -17,6 +21,14 @@ public class CartrsController {
     @Autowired
     public CartrsController(CartrsServiceImpl cartrsServiceImpl) {
         this.cartrsServiceImpl = cartrsServiceImpl;
+    }
+
+    @GetMapping("/cartrs")
+    public String findAllCartrs(Model model) {
+        List<Cartrs> cartrs = cartrsServiceImpl.findAll();
+        model.addAttribute("cartrs", cartrs);
+        return "cartrs-list";
+
     }
 
     @GetMapping("/cartrs-create")

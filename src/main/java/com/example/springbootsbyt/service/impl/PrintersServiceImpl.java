@@ -34,6 +34,4 @@ public class PrintersServiceImpl implements PrintersService {
         printersRepository.deleteById(id);
     }
 
-
-
 }

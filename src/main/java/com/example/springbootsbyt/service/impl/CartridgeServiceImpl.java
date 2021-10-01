@@ -37,5 +37,8 @@ public class CartridgeServiceImpl implements CartridgeService {
         cartridgeRepository.deleteById(id);
     }
 
+    public List<Cartridges> findAll(String keyword){
+        return cartridgeRepository.findAll(keyword);
+    }
 
 }

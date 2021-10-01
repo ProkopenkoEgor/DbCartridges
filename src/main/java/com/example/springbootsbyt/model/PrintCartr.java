@@ -19,4 +19,27 @@ public class PrintCartr {
     @Column(name = "id_printers")
     private Integer idPrinters;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getIdCartrs() {
+        return idCartrs;
+    }
+
+    public void setIdCartrs(Integer idCartrs) {
+        this.idCartrs = idCartrs;
+    }
+
+    public Integer getIdPrinters() {
+        return idPrinters;
+    }
+
+    public void setIdPrinters(Integer idPrinters) {
+        this.idPrinters = idPrinters;
+    }
 }

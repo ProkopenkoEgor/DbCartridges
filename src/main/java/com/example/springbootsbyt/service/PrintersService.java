@@ -15,5 +15,4 @@ public interface PrintersService {
     public void deleteById(Integer id);
 
 
-
 }

@@ -17,4 +17,20 @@ public class Printers {
 
     @Column(name = "type_printers")
     private String typePrinters;
+
+    public Integer getIdPrinters() {
+        return idPrinters;
+    }
+
+    public void setIdPrinters(Integer idPrinters) {
+        this.idPrinters = idPrinters;
+    }
+
+    public String getTypePrinters() {
+        return typePrinters;
+    }
+
+    public void setTypePrinters(String typePrinters) {
+        this.typePrinters = typePrinters;
+    }
 }

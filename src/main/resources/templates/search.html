@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск</title>
+</head>
+<body>
+    <h1>Поиск</h1>
+    <form action="#" th:action="@{/search}" th:object = "${cartridges}" method="post">
+        <label> Поиск (Инвентарному, по заправкам, по городу, по типам) </label>
+        <input type="search" name="keyword" >
+        <input type="submit" value="Найти">
+    </form>
+    <p><a href="/Main">Вернуться на главную</a></p>
+</body>
+</html>

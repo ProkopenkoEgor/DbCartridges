@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Типы картриджей</title>
+</head>
+<body>
+<div th:switch="${cartrs}">
+    <h2 th:case="null">Типы картриджей не найдены!</h2>
+    <div th:case="*">
+        <h2>Типы картриджей</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id Типов картриджей</th>
+                <th>Чип</th>
+                <th>Тип картриджа</th>
+                <th colspan="2">Операции</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartrs : ${cartrs}">
+                <td th:text="${cartrs.idCartrs}"></td>
+                <td th:text="${cartrs.chip}"></td>
+                <td th:text="${cartrs.typeCartr}"></td>
+                <td><a th:href="@{cartrs-update/{idCartrs}(idCartrs=${cartrs.idCartrs})}">Исправить</a></td>
+                <td><a th:href="@{cartrs-delete/{idCartrs}(idCartrs=${cartrs.idCartrs})}">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/cartrs-create">Создать тип картриджа</a></p>
+    <p><a href="/cartridges">Перейти на картриджи</a></p>
+    <p><a href="/printers">Перейти на принтеры</a></p>
+    <p><a href="/Main">Вернуться на главную</a></p>
+</div>
+</body>
+</html>

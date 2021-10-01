@@ -4,17 +4,14 @@ import com.example.springbootsbyt.model.Cartridges;
 import com.example.springbootsbyt.model.History;
 import com.example.springbootsbyt.service.impl.CartridgeServiceImpl;
 import com.example.springbootsbyt.service.impl.HistoryServiceImpl;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
-@Data
+
 @Controller
 public class HistoryController {
     private final HistoryServiceImpl historyServiceImpl;
@@ -28,7 +25,7 @@ public class HistoryController {
     }
 
     @GetMapping("/history")
-    public String findAll(Model model){
+    public String findAllHistory(Model model){
         List<History> history = historyServiceImpl.findAll();
         List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
         model.addAttribute("history", history);

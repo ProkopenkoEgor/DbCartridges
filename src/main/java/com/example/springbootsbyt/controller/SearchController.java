@@ -14,11 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 @Controller
-public class CartridgeController {
-
+public class SearchController {
     private final CartridgeServiceImpl cartridgeServiceImpl;
     private final CartrsServiceImpl cartrsServiceImpl;
     private final HistoryServiceImpl historyServiceImpl;
@@ -26,7 +27,7 @@ public class CartridgeController {
 
 
     @Autowired
-    public CartridgeController(CartridgeServiceImpl cartridgeServiceImpl,
+    public SearchController(CartridgeServiceImpl cartridgeServiceImpl,
                                CartrsServiceImpl cartrsServiceImpl,
                                HistoryServiceImpl historyServiceImpl,
                                PrintersServiceImpl printersServiceImpl){
@@ -35,9 +36,8 @@ public class CartridgeController {
         this.historyServiceImpl = historyServiceImpl;
         this.printersServiceImpl = printersServiceImpl;
     }
-
-    @GetMapping("/cartridges")
-    public String findAllCartridges(Model model) {
+    @GetMapping("/search")
+    public String findAll(Model model) {
         List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
         List<Cartrs> cartrs = cartrsServiceImpl.findAll();
         List<History> history = historyServiceImpl.findAll();
@@ -46,53 +46,17 @@ public class CartridgeController {
         model.addAttribute("cartrs", cartrs);
         model.addAttribute("history", history);
         model.addAttribute("printers", printers);
-        return "cartridge-list";
-
+        return "search";
     }
-
-    @GetMapping("/cartridge-create")
-    public String createCartridgeForm(Model model, Cartridges cartridge) {
+    @PostMapping("/search")
+    public String Search(Model model, String keyword){
+        List<Cartridges> cartridges = cartridgeServiceImpl.findAll(keyword);
         List<Cartrs> cartrs = cartrsServiceImpl.findAll();
         List<Printers> printers = printersServiceImpl.findAll();
-        model.addAttribute("cartrs", cartrs);
-        model.addAttribute("printers", printers);
-        return "cartridge-create";
-    }
-
-    @PostMapping("/cartridge-create")
-    public String createCartridge(Cartridges cartridge) {
-        cartridgeServiceImpl.saveCartridge(cartridge);
-        return "redirect:/cartridges";
-    }
-
-    @GetMapping("/cartridge-update/{id}")
-    public String updateCartridgeForm(@PathVariable("id") int id, Model model) {
-        Cartridges cartridge = cartridgeServiceImpl.findById(id);
-        List<Cartrs> cartrs = cartrsServiceImpl.findAll();
-        List<Printers> printers = printersServiceImpl.findAll();
-        model.addAttribute("cartridge", cartridge);
-        model.addAttribute("cartrs", cartrs);
-        model.addAttribute("printers", printers);
-        return "cartridge-update";
-    }
-
-    @PostMapping("/cartridge-update")
-    public String updateUser(Cartridges cartridge) {
-        cartridgeServiceImpl.saveCartridge(cartridge);
-        return "redirect:/cartridges";
-    }
-    @GetMapping("/cartridge-moreInfo/{id}")
-    public String moreInfoForm(@PathVariable("id") int id, Model model) {
-        Cartridges cartridges = cartridgeServiceImpl.findById(id);
-        List<History> history = historyServiceImpl.findAll();
         model.addAttribute("cartridges", cartridges);
-        model.addAttribute("history", history);
-        return "cartridge-moreinfo";
-    }
-
-    @GetMapping("/cartridge-delete/{id}")
-    public String deleteCartridge(@PathVariable("id") int id) {
-        cartridgeServiceImpl.deleteById(id);
-        return "redirect:/cartridges";
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("cartrs", cartrs);
+        model.addAttribute("printers", printers);
+        return "result-search";
     }
 }
