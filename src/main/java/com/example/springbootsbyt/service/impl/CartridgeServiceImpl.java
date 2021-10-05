@@ -7,8 +7,10 @@ import com.example.springbootsbyt.repository.CartridgeRepository;
 import com.example.springbootsbyt.service.CartridgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -40,5 +42,4 @@ public class CartridgeServiceImpl implements CartridgeService {
     public List<Cartridges> findAll(String keyword){
         return cartridgeRepository.findAll(keyword);
     }
-
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -58,5 +60,18 @@ public class SearchController {
         model.addAttribute("cartrs", cartrs);
         model.addAttribute("printers", printers);
         return "result-search";
+    }
+
+    @PostMapping("/Data-Search")
+    public String DataSearch(Date Date, Model model){
+        List<History> histories = historyServiceImpl.findByDateOfStatus(Date);
+        List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
+        List<Cartrs> cartrs = cartrsServiceImpl.findAll();
+        List<Printers> printers = printersServiceImpl.findAll();
+        model.addAttribute("cartridges", cartridges);
+        model.addAttribute("history", histories);
+        model.addAttribute("cartrs", cartrs);
+        model.addAttribute("printers", printers);
+        return "result-DataSearch";
     }
 }

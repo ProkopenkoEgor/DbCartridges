@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты поиска по дате</title>
+</head>
+<body>
+<div th:switch="${cartridges}">
+    <h2 th:case="null">Картриджи не найдены!</h2>
+    <div th:case="*">
+        <h2>Картриджи</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id Истории</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Id Картриджа</th>
+                <th>Id</th>
+                <th>Инвентарный номер</th>
+                <th>Ресурс</th>
+                <th>Город</th>
+                <th>Исполнитель</th>
+                <th>Колличество заправок</th>
+                <th>Комментарии</th>
+                <th colspan="2">Операции</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hist:${history}">
+                <td th:text="${hist.idHistory}"></td>
+                <td th:text="${hist.dateOfStatus}"></td>
+                <td th:text="${hist.Status}"></td>
+                <td th:text="${hist.cartridgesId}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.id}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.inventoryNumber}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.resource}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.city}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.executor}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.count}"></td>
+                <td th:each="cartridge:${cartridges}"
+                    th:switch="${cartridge.id}"
+                    th:case="${hist.cartridgesId}"
+                    th:text="${cartridge.comments}"></td>
+            </tr>
+                <!--                <td><a th:href="@{cartridge-moreInfo/{id}(id=${cartridge.id})}">Подробнее</a></td>-->
+                <!--                <td><a th:href="@{cartridge-update/{id}(id=${cartridge.id})}">Исправить</a></td>-->
+                <!--                <td><a th:href="@{cartridge-delete/{id}(id=${cartridge.id})}">Удалить</a></td>-->
+            </tbody>
+        </table>
+    </div>
+    <!--    <p><a href="/cartridge-create">Создать картридж</a></p>-->
+    <!--    <p><a href="/cartrs">Перейти на типы картриджей</a></p>-->
+    <!--    <p><a href="/printers">Перейти на типы принтеров</a></p>-->
+    <p><a href="/Main">Вернуться на главную</a></p>
+</div>
+</body>
+</html>

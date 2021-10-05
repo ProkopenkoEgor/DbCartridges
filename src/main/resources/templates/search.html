@@ -12,6 +12,11 @@
         <input type="search" name="keyword" >
         <input type="submit" value="Найти">
     </form>
+    <form action="#" th:action="@{/Data-Search}" th:object="${history}" method="post">
+        <label Поиск по дате></label>
+        <input type="date" name="Date">
+        <input type="submit" value="Найти по дате">
+    </form>
     <p><a href="/Main">Вернуться на главную</a></p>
 </body>
 </html>

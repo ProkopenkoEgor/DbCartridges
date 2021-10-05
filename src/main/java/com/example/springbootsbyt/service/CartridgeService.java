@@ -1,9 +1,12 @@
 package com.example.springbootsbyt.service;
 
 import com.example.springbootsbyt.model.Cartridges;
+import com.example.springbootsbyt.model.History;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
+import java.sql.Date;
 import java.util.List;
 
 public interface CartridgeService  {

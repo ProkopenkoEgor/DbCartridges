@@ -6,8 +6,11 @@ import com.example.springbootsbyt.repository.CartridgeRepository;
 import com.example.springbootsbyt.repository.HistoryRepository;
 import com.example.springbootsbyt.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -90,5 +93,8 @@ public class HistoryServiceImpl implements HistoryService {
             }
         }
         return historyRepository.save(history1);
+    }
+    public List<History> findByDateOfStatus(@Param("Date") Date Date){
+        return historyRepository.findByDateOfStatus(Date);
     }
 }
