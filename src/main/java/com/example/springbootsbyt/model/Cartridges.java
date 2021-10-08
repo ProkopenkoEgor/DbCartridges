@@ -3,12 +3,13 @@ package com.example.springbootsbyt.model;
 //import com.example.springbootsbyt.entity.Cartrs;
 import lombok.Data;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Objects;
-@Data
 @Entity
 @Table(name = "cartridges")
 public class Cartridges {
@@ -17,9 +18,11 @@ public class Cartridges {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Поле не может быть пустым")
     @Column(name = "inventory_number")
     private Integer inventoryNumber;
 
+    @NotNull(message = "Поле не может быть пустым")
     @Column(name = "resource")
     private Integer resource;
 

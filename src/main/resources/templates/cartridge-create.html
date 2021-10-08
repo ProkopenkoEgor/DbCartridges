@@ -2,61 +2,90 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <title>Создать картридж</title>
 </head>
 <body>
+<div class="container">
+</div>
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
 <form action="#" th:action="@{/cartridge-create}" th:object="${cartridges}" method="post">
-    <table>
-        <tbody>
-        <tr>
-            <th for="inventoryNumber">Инвентарный номер</th>
-            <td><input type="text" th:field="*{inventoryNumber}" id="inventoryNumber" placeholder="inventoryNumber">
-            </td>
-        </tr>
-        <tr>
-            <th for="resource">Ресурс</th>
-            <td><input type="text" th:field="*{resource}" id="resource" placeholder="resource"></td>
-        </tr>
-        <tr>
-            <th for="city">Город</th>
-            <td><input type="text" th:field="*{city}" id="city" placeholder="city"></td>
-        </tr>
-        <tr>
-            <th for="executor">Исполнитель</th>
-            <td><input type="text" th:field="*{executor}" id="executor" placeholder="executor"></td>
-        </tr>
-        <tr>
-            <th for="comments">Описание</th>
-            <td><input type="text" th:field="*{comments}" id="comments" placeholder="comments"></td>
-        </tr>
-        <tr>
-            <th for="count">Количество заправок</th>
-            <td><input readonly type="number" th:field="*{count}" th:value="*{count=0}" id="count"></td>
-        </tr>
-        <tr>
-            <td>Выберите тип картриджа</td>
-            <td><select th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs">
-                <option th:each="cart : ${cartrs}"
-                        th:value="${cart.idCartrs}"
-                        th:text="${cart.typeCartr}">
-                </option>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Выберите тип принтера</td>
-            <td><select th:field="*{printersIdPrinters}" id="printersIdPrinters">
-                <option th:each="print : ${printers}"
-                        th:value="${print.idPrinters}"
-                        th:text="${print.typePrinters}">
-                </option>
-            </select>
-            </td>
-        </tr>
-            <td><input type="submit" value="Создать картридж"></td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="container ms-auto mt-5 fw-bold" >
+            <div class="row mb-3">
+                    <label for="inventoryNumber" class="col-sm-2 col-form-label">Инвентарный номер</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{inventoryNumber}"
+                           id="inventoryNumber" placeholder="inventoryNumber">
+                    <div style="color:red" th:if="${#fields.hasErrors('inventoryNumber')}" th:errors="*{inventoryNumber}">Name Error</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="resource" class="col-sm-2 col-form-label">Ресурс</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{resource}"
+                           id="resource" placeholder="resource">
+                    <div style="color:red" th:if="${#fields.hasErrors('resource')}" th:errors="*{resource}">Name Error</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="city" class="col-sm-2 col-form-label">Город</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{city}" id="city" placeholder="city">
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="executor" class="col-sm-2 col-form-label">Исполнитель</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{executor}" id="executor" placeholder="executor">
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="comments" class="col-sm-2 col-form-label">Описание</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" th:field="*{comments}" id="comments" placeholder="comments">
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="count" class="col-sm-2 col-form-label">Количество заправок</label>
+                <div class="col-sm-2">
+                    <input readonly type="number" class="form-control" th:field="*{count}" th:value="*{count=0}" id="count">
+                </div>
+            </div>
+            <div class="row mb-3">
+                     <label for="cartrsIdCartrs" class="col-sm-2 col-form-label">Выберите тип картриджа</label>
+                <div class="col-sm-7">
+                    <select class="form-select w-25"  th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs">
+                        <option th:each="cart : ${cartrs}"
+                            th:value="${cart.idCartrs}"
+                            th:text="${cart.typeCartr}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="printersIdPrinters" class="col-sm-2 col-form-label">Выберите тип принтера</label>
+                <div class="col-sm-7">
+                    <select class="form-select w-25"  th:field="*{printersIdPrinters}" id="printersIdPrinters">
+                        <option th:each="print : ${printers}"
+                                th:value="${print.idPrinters}"
+                                th:text="${print.typePrinters}">
+                        </option>
+                    </select>
+                    </div>
+            </div>
+            <input type="submit" class="btn btn-primary mt-2" value="Создать картридж">
+    </div>
 </form>
+<p><a href="/Main" class="btn btn-primary mt-2">Вернуться на главную</a></p>
 </body>
 </html>
