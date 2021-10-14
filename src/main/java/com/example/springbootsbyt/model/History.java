@@ -1,17 +1,11 @@
 package com.example.springbootsbyt.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.sql.Date;
-import java.time.LocalDate;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "history")
-@NoArgsConstructor
 public class History {
 
     @Id

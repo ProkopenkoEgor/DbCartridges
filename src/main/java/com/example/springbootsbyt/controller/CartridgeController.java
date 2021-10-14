@@ -12,20 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Controller
 public class CartridgeController {
@@ -58,7 +50,6 @@ public class CartridgeController {
         model.addAttribute("history", history);
         model.addAttribute("printers", printers);
         return "cartridge-list";
-
     }
 
     @GetMapping("/cartridge-create")
@@ -72,20 +63,18 @@ public class CartridgeController {
 
     @PostMapping("/cartridge-create")
     public String createCartridge(@Valid Cartridges cartridge, BindingResult bindingResult, Model model){
-        try {if (bindingResult.hasErrors()){
-            List<Cartrs> cartrs = cartrsServiceImpl.findAll();
-            List<Printers> printers = printersServiceImpl.findAll();
-            model.addAttribute("cartrs", cartrs);
-            model.addAttribute("printers", printers);
-            model.addAttribute("cartridges", cartridge);
-            return "cartridge-create";
-        }
-        }catch(NumberFormatException e){
-            throw new ValidationException("lox");
-        }
+       if (bindingResult.hasErrors()) {
+               List<Cartrs> cartrs = cartrsServiceImpl.findAll();
+               List<Printers> printers = printersServiceImpl.findAll();
+               model.addAttribute("cartrs", cartrs);
+               model.addAttribute("printers", printers);
+               model.addAttribute("cartridges", cartridge);
+               return "cartridge-create";
+           }
         cartridgeServiceImpl.saveCartridge(cartridge);
         return "redirect:/cartridges";
     }
+
 
 
     @GetMapping("/cartridge-update/{id}")
@@ -110,7 +99,7 @@ public class CartridgeController {
         List<History> history = historyServiceImpl.findAll();
         model.addAttribute("cartridges", cartridges);
         model.addAttribute("history", history);
-        return "cartridge-moreinfo";
+        return "cartridge-moreInfo";
     }
 
     @GetMapping("/cartridge-delete/{id}")

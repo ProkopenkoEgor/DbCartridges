@@ -24,7 +24,7 @@
             <div class="row mb-3">
                     <label for="inventoryNumber" class="col-sm-2 col-form-label">Инвентарный номер</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" th:field="*{inventoryNumber}"
+                    <input type="text" class="form-control"  th:field="*{inventoryNumber}"
                            id="inventoryNumber" placeholder="inventoryNumber">
                     <div style="color:red" th:if="${#fields.hasErrors('inventoryNumber')}" th:errors="*{inventoryNumber}">Name Error</div>
                 </div>
@@ -32,7 +32,7 @@
             <div class="row mb-3">
                     <label for="resource" class="col-sm-2 col-form-label">Ресурс</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" th:field="*{resource}"
+                    <input type="text" class="form-control"  th:field="*{resource}"
                            id="resource" placeholder="resource">
                     <div style="color:red" th:if="${#fields.hasErrors('resource')}" th:errors="*{resource}">Name Error</div>
                 </div>
@@ -40,7 +40,9 @@
             <div class="row mb-3">
                     <label for="city" class="col-sm-2 col-form-label">Город</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" th:field="*{city}" id="city" placeholder="city">
+                    <input type="text" class="form-control" th:field="*{city}"
+                           id="city" placeholder="city">
+                    <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</div>
                 </div>
             </div>
             <div class="row mb-3">
@@ -86,6 +88,6 @@
             <input type="submit" class="btn btn-primary mt-2" value="Создать картридж">
     </div>
 </form>
-<p><a href="/Main" class="btn btn-primary mt-2">Вернуться на главную</a></p>
+<p><a href="/main" class="btn btn-primary mt-2">Вернуться на главную</a></p>
 </body>
 </html>

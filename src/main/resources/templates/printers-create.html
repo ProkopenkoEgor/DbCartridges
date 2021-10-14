@@ -22,7 +22,14 @@
     <tbody>
     <tr>
         <th for="typePrinters">Тип принтера</th>
-        <td><input type="text" th:field="*{typePrinters}" id="typePrinters">
+        <td><input type="text" th:field="*{typePrinters}" id="typePrinters" placeholder="typePrinters" required>
+            <div style="color:red" th:if="${#fields.hasErrors('typePrinters')}" th:errors="*{typePrinters}">Name Error</div>
+
+        </td>
+    </tr>
+    <tr>
+        <th for="modelFromPrinters">Модель</th>
+        <td><input type="text" th:field="*{modelFromPrinters}" id="modelFromPrinters">
         </td>
     </tr>
     <td><input type="submit" value="Создать Принтер"></td>

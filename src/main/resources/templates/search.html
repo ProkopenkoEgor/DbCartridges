@@ -10,6 +10,8 @@
     <title>Поиск</title>
 </head>
 <body>
+<div class="container">
+</div>
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -18,17 +20,36 @@
 <!-- Option 2: Separate Popper and Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
-    <h1>Поиск</h1>
+<div class="container">
+    <div class="mx-auto" style="width: 200px;">
+        <h1>Поиск</h1>
+    </div>
     <form action="#" th:action="@{/search}" th:object = "${cartridges}" method="post">
-        <label> Поиск (Инвентарному, по заправкам, по городу, по типам) </label>
-        <input type="search" name="keyword" >
-        <input type="submit" value="Найти">
+        <div class="container ms-auto mt-5 fw-bold" >
+            <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Поиск (Инвентарному, по заправкам, по городу, по типам) </label>
+                <div class="col-sm-3">
+                    <input type="search"  name="keyword" >
+                </div>
+                <div class="col-sm-2">
+                     <input class="btn btn-primary" type="button" value="Найти">
+                </div>
+            </div>
+        </div>
     </form>
     <form action="#" th:action="@{/Data-Search}" th:object="${history}" method="post">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Поиск По Дате
+        </a>
+        <div class="collapse w-25 mt-2" id="collapseExample">
+            <div class="card card-body">
         <label Поиск по дате></label>
         <input type="date" name="Date">
-        <input type="submit" value="Найти по дате">
+        <input class="btn btn-primary mt-3" type="button" value="Найти по дате">
+            </div>
+        </div>
     </form>
-    <p><a href="/Main">Вернуться на главную</a></p>
+    <p><a class="btn btn-primary mt-5" type="button" href="/main">Вернуться на главную</a></p>
+</div>
 </body>
 </html>

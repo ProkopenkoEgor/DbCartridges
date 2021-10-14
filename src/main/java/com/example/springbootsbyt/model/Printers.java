@@ -1,12 +1,11 @@
 package com.example.springbootsbyt.model;
 
-import lombok.Data;
-import org.aspectj.weaver.GeneratedReferenceTypeDelegate;
-import org.hibernate.annotations.CollectionId;
-
 import javax.persistence.*;
+import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "printers")
 public class Printers {
@@ -15,8 +14,15 @@ public class Printers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrinters;
 
-    @Column(name = "type_printers")
+
+    @Column(unique = true, name = "type_printers")
     private String typePrinters;
+
+    @Column(name = "model_from_printers")
+    private String modelFromPrinters;
+
+    @ManyToMany(mappedBy = "printersSet",fetch = FetchType.LAZY)
+    private Set<Cartrs> cartrsSet = new HashSet<>();
 
     public Integer getIdPrinters() {
         return idPrinters;
@@ -32,5 +38,46 @@ public class Printers {
 
     public void setTypePrinters(String typePrinters) {
         this.typePrinters = typePrinters;
+    }
+
+    public String getModelFromPrinters() {
+        return modelFromPrinters;
+    }
+
+    public void setModelFromPrinters(String modelFromPrinters) {
+        this.modelFromPrinters = modelFromPrinters;
+    }
+
+    public Printers() {
+    }
+
+    public Printers(Integer idPrinters, String typePrinters, String modelFromPrinters) {
+        this.idPrinters = idPrinters;
+        this.typePrinters = typePrinters;
+        this.modelFromPrinters = modelFromPrinters;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Printers printers = (Printers) o;
+        return Objects.equals(idPrinters, printers.idPrinters) &&
+                Objects.equals(typePrinters, printers.typePrinters) &&
+                Objects.equals(modelFromPrinters, printers.modelFromPrinters);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPrinters, typePrinters, modelFromPrinters);
+    }
+
+    @Override
+    public String toString() {
+        return "Printers{" +
+                "idPrinters=" + idPrinters +
+                ", typePrinters='" + typePrinters + '\'' +
+                ", modelFromPrinters='" + modelFromPrinters + '\'' +
+                '}';
     }
 }

@@ -1,15 +1,9 @@
 package com.example.springbootsbyt.model;
 
-//import com.example.springbootsbyt.entity.Cartrs;
-import lombok.Data;
-import lombok.NonNull;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.List;
 import java.util.Objects;
+
 @Entity
 @Table(name = "cartridges")
 public class Cartridges {
@@ -18,13 +12,15 @@ public class Cartridges {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Поле не может быть пустым")
+    @NotBlank(message = "Поле не может быть пустым")
+    @Digits(integer = 15,fraction = 0,message = "Неверный ввод, ожидается только цифры(не более 15 цифр)")
     @Column(name = "inventory_number")
-    private Integer inventoryNumber;
+    private String inventoryNumber;
 
-    @NotNull(message = "Поле не может быть пустым")
+    @NotBlank(message = "Поле не может быть пустым")
+    @Pattern(regexp = "[0-9.,-]+",message = "Неверный ввод, ожидаются цифры или символы")
     @Column(name = "resource")
-    private Integer resource;
+    private String resource;
 
     @Column(name = "barcode")
     private Integer barcode;
@@ -33,6 +29,7 @@ public class Cartridges {
     private String comments;
 
     @Column(name = "city")
+    @NotBlank(message = "Поле не может быть пустым")
     private String city;
 
     @Column(name = "executor")
@@ -55,19 +52,19 @@ public class Cartridges {
         this.id = id;
     }
 
-    public Integer getInventoryNumber() {
+    public String getInventoryNumber() {
         return inventoryNumber;
     }
 
-    public void setInventoryNumber(Integer inventoryNumber) {
+    public void setInventoryNumber(String inventoryNumber) {
         this.inventoryNumber = inventoryNumber;
     }
 
-    public Integer getResource() {
+    public String getResource() {
         return resource;
     }
 
-    public void setResource(Integer resource) {
+    public void setResource(String resource) {
         this.resource = resource;
     }
 
@@ -126,4 +123,43 @@ public class Cartridges {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "Cartridges{" +
+                "id=" + id +
+                ", inventoryNumber=" + inventoryNumber +
+                ", resource=" + resource +
+                ", barcode=" + barcode +
+                ", comments='" + comments + '\'' +
+                ", city='" + city + '\'' +
+                ", executor='" + executor + '\'' +
+                ", cartrsIdCartrs=" + cartrsIdCartrs +
+                ", printersIdPrinters=" + printersIdPrinters +
+                ", count=" + count +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cartridges that = (Cartridges) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(inventoryNumber, that.inventoryNumber) &&
+                Objects.equals(resource, that.resource) &&
+                Objects.equals(barcode, that.barcode) &&
+                Objects.equals(comments, that.comments) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(executor, that.executor) &&
+                Objects.equals(cartrsIdCartrs, that.cartrsIdCartrs) &&
+                Objects.equals(printersIdPrinters, that.printersIdPrinters) &&
+                Objects.equals(count, that.count);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, inventoryNumber, resource, barcode, comments, city, executor, cartrsIdCartrs, printersIdPrinters, count);
+    }
+
 }

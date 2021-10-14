@@ -26,6 +26,7 @@
             <tr>
                 <th>Id принтеров</th>
                 <th>Тип принтера</th>
+                <th>Модель</th>
                 <th colspan="2">Операции</th>
             </tr>
             </thead>
@@ -33,6 +34,7 @@
             <tr th:each="print : ${printers}">
                 <td th:text="${print.idPrinters}"></td>
                 <td th:text="${print.typePrinters}"></td>
+                <td th:text="${print.modelFromPrinters}"></td>
                 <td><a th:href="@{printers-update/{id}(id=${print.idPrinters})}">Исправить</a></td>
                 <td><a th:href="@{printers-delete/{id}(id=${print.idPrinters})}">Удалить</a></td>
             </tr>
@@ -42,7 +44,7 @@
     <p><a href="/printers-create">Создать тип принтера</a></p>
     <p><a href="/cartridges">Перейти на картриджи</a></p>
     <p><a href="/cartrs">Перейти на типы картриджей</a></p>
-    <p><a href="/Main">Вернуться на главную</a></p>
+    <p><a href="/main">Вернуться на главную</a></p>
 </div>
 </body>
 </html>

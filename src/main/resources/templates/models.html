@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:td="http://www.w3.org/1999/xhtml"
+      xmlns:tr="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <title>Модели</title>
+</head>
+<body>
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
+<div class="mx-auto" style="width: 200px;">
+    <h1>Модели</h1>
+</div>
+<div class="table-responsive">
+<table class="table table-hover table-bordered">
+    <div class="container">
+        <thead class="table-light">
+    <tr>
+        <th scope="col">Модель принтера</th>
+        <th scope="col">Тип картриджа</th>
+        <th scope="col">Чип</th>
+        <th scope="col">Тип Принтера</th>
+    </tr>
+    </thead>
+        <tbody>
+        <tr th:each="cart : ${cartrs}">
+            <td th:each="print : ${printers}"
+                th:switch="${cart.typePrintersFromCartrs}"
+                th:case="${print.typePrinters}"
+                th:text="${print.modelFromPrinters}"></td>
+            <td th:each="print : ${printers}"
+                th:switch="${print.typePrinters}"
+                th:case="${cart.typePrintersFromCartrs}"
+                th:text="${cart.typeCartr}"></td>
+            <td th:each="print : ${printers}"
+                th:switch="${print.typePrinters}"
+                th:case="${cart.typePrintersFromCartrs}"
+                th:text="${cart.chip}"></td>
+            <td th:each="print : ${printers}"
+                th:switch="${print.typePrinters}"
+                th:case="${cart.typePrintersFromCartrs}"
+                th:text="${cart.typePrintersFromCartrs}"></td>
+
+        </tr>
+        </tbody>
+<!--    <tbody >-->
+<!--    <tr th:each="print : ${printers}">-->
+
+<!--        <td th:text="${print.modelFromPrinters}"></td>-->
+<!--        <td th:each="cart:${cartrs}"-->
+<!--            th:switch="${cart.typePrintersFromCartrs}"-->
+<!--            th:case="${print.typePrinters}"-->
+<!--            th:text="${cart.typeCartr}"></td>-->
+<!--        <td th:each="cart:${cartrs}"-->
+<!--            th:switch="${cart.typePrintersFromCartrs}"-->
+<!--            th:case="${print.typePrinters}"-->
+<!--            th:text="${cart.chip}"></td>-->
+<!--        <td th:each="cart:${cartrs}"-->
+<!--            th:switch="${cart.typePrintersFromCartrs}"-->
+<!--            th:case="${print.typePrinters}"-->
+<!--            th:text="${print.typePrinters}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+    </div>
+</table>
+</div>
+<p><a href="/cartrs">Перейти на типы картриджей</a></p>
+<p><a href="/printers">Перейти на типы принтеров</a></p>
+<p><a style="color:red" href="/main">Вернуться на главную</a></p>
+</body>
+</html>
