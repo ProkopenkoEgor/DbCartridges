@@ -1,10 +1,8 @@
 package com.example.springbootsbyt.model;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "printers")
@@ -21,8 +19,13 @@ public class Printers {
     @Column(name = "model_from_printers")
     private String modelFromPrinters;
 
-    @ManyToMany(mappedBy = "printersSet",fetch = FetchType.LAZY)
-    private Set<Cartrs> cartrsSet = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "cartrs_has_printers",
+            joinColumns = @JoinColumn(name = "printers_id_printers"),
+            inverseJoinColumns = @JoinColumn(name = "cartrs_id_cartrs")
+    )
+    private List<Cartrs> cartrsList;
 
     public Integer getIdPrinters() {
         return idPrinters;
@@ -48,13 +51,21 @@ public class Printers {
         this.modelFromPrinters = modelFromPrinters;
     }
 
-    public Printers() {
+    public List<Cartrs> getCartrsList() {
+        return cartrsList;
+    }
+
+    public void setCartrsList(List<Cartrs> cartrsList) {
+        this.cartrsList = cartrsList;
     }
 
     public Printers(Integer idPrinters, String typePrinters, String modelFromPrinters) {
         this.idPrinters = idPrinters;
         this.typePrinters = typePrinters;
         this.modelFromPrinters = modelFromPrinters;
+    }
+
+    public Printers() {
     }
 
     @Override

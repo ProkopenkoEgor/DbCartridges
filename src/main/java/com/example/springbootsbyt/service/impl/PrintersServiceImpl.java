@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class PrintersServiceImpl implements PrintersService {
     private final PrintersRepository printersRepository;
@@ -33,5 +35,4 @@ public class PrintersServiceImpl implements PrintersService {
     public void deleteById(Integer id){
         printersRepository.deleteById(id);
     }
-
 }

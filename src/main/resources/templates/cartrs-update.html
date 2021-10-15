@@ -32,12 +32,12 @@
             </td>
         </tr>
         <tr>
-            <th for="typeCartr">Тип</th>
-            <td><input type="text" th:field="*{typeCartr}" id="type_cartr" placeholder="typeCartr"></td>
+            <th for="typeCartr">Тип картриджа</th>
+            <td><input type="text" th:field="*{typeCartr}" id="typeCartr" placeholder="typeCartr"></td>
         </tr>
         <tr>
-            <td>Модель принтера</td>
-            <td><select th:field="*{modelFromCartrs}" id="modelFromCartrs">
+            <td>Тип принтера</td>
+            <td><select th:field="*{typePrintersFromCartrs}" id="typePrintersFromCartrs">
                 <option th:each="print:${printers}"
                         th:value="${print.typePrinters}"
                         th:text="${print.typePrinters}">

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ModelsController {
@@ -21,7 +22,7 @@ public class ModelsController {
     }
     @GetMapping("/models")
     public String findAllCartridges(Model model) {
-        List<Cartrs> cartrs = cartrsServiceImpl.findAll();
+        List<Cartrs> cartrs = cartrsServiceImpl.findDistinctByModelFromCartrs();
         List<Printers> printers = printersServiceImpl.findAll();
         model.addAttribute("cartrs", cartrs);
         model.addAttribute("printers", printers);

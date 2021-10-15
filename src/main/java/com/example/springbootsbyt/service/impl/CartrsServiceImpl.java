@@ -32,4 +32,7 @@ public class CartrsServiceImpl implements CartrsService {
     public void deleteById(Integer id){
         cartrsRepository.deleteById(id);
     }
+    public List<Cartrs> findDistinctByModelFromCartrs(){
+        return cartrsRepository.findDistinctByModelFromCartrs();
+    }
 }

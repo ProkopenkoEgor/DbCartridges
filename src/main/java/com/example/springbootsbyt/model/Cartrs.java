@@ -2,6 +2,7 @@ package com.example.springbootsbyt.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,13 +23,17 @@ public class Cartrs {
     @Column(name = "type_printers_from_cartrs")
     private String typePrintersFromCartrs;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JoinTable(name = "cartrs_has_printers",
-            joinColumns = @JoinColumn(name = "cartrs_id_cartrs"),
-            inverseJoinColumns = @JoinColumn(name = "printers_id_printers")
-    )
-    private Set<Printers> printersSet = new HashSet<>();
+    @ManyToMany(mappedBy = "cartrsList",fetch = FetchType.EAGER)
 
+    private List<Printers> printersList;
+
+    public List<Printers> getPrintersList() {
+        return printersList;
+    }
+
+    public void setPrintersList(List<Printers> printersList) {
+        this.printersList = printersList;
+    }
 
     public String getTypePrintersFromCartrs() {
         return typePrintersFromCartrs;

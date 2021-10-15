@@ -1,25 +1,26 @@
 package com.example.springbootsbyt.controller;
 
+import com.example.springbootsbyt.model.Cartrs;
 import com.example.springbootsbyt.model.Printers;
+import com.example.springbootsbyt.service.impl.CartrsServiceImpl;
 import com.example.springbootsbyt.service.impl.PrintersServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
 public class PrintersController {
     private final PrintersServiceImpl printersServiceImpl;
+    private final CartrsServiceImpl cartrsServiceImpl;
 
-    public PrintersController(PrintersServiceImpl printersServiceImpl) {
+    public PrintersController(PrintersServiceImpl printersServiceImpl, CartrsServiceImpl cartrsServiceImpl) {
         this.printersServiceImpl = printersServiceImpl;
+        this.cartrsServiceImpl = cartrsServiceImpl;
     }
 
     @GetMapping("/printers")
@@ -35,13 +36,14 @@ public class PrintersController {
     }
 
     @PostMapping("/printers-create")
-    public String createPrinters(Printers printers) {
+    public String createPrinters(Printers printers, BindingResult bindingResult) {
         Printers printer = null;
         List<Printers> printers1 = printersServiceImpl.findAll();
         String str = printers.getTypePrinters();
         for(int i=0; i<printers1.size(); i++){
             printer=printers1.get(i);
             if(str.equalsIgnoreCase(printer.getTypePrinters())==true){
+                bindingResult.rejectValue("typePrinters","error.typePrintres","Такой тип принтера уже есть");
                 return "/printers-create";
             }
         }
@@ -52,7 +54,9 @@ public class PrintersController {
     @GetMapping("/printers-update/{id}")
     public String updatePrintersForm(@PathVariable("id") Integer id, Model model){
         Printers printers = printersServiceImpl.findById(id);
+        Cartrs cartrs=cartrsServiceImpl.findById(id);
         model.addAttribute("printers",printers);
+        model.addAttribute("cartrs",cartrs);
         return "printers-update";
     }
 
