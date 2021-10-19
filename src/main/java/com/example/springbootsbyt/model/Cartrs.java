@@ -1,10 +1,7 @@
 package com.example.springbootsbyt.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "cartrs")
@@ -20,28 +17,8 @@ public class Cartrs {
     @Column(name = "type_cartr")
     private String typeCartr;
 
-    @Column(name = "type_printers_from_cartrs")
-    private String typePrintersFromCartrs;
-
-    @ManyToMany(mappedBy = "cartrsList",fetch = FetchType.EAGER)
-
-    private List<Printers> printersList;
-
-    public List<Printers> getPrintersList() {
-        return printersList;
-    }
-
-    public void setPrintersList(List<Printers> printersList) {
-        this.printersList = printersList;
-    }
-
-    public String getTypePrintersFromCartrs() {
-        return typePrintersFromCartrs;
-    }
-
-    public void setTypePrintersFromCartrs(String typePrintersFromCartrs) {
-        this.typePrintersFromCartrs = typePrintersFromCartrs;
-    }
+    @Column(name = "printers_id_printers")
+    private Integer printersIdPrinters;
 
     public Integer getIdCartrs() {
         return idCartrs;
@@ -70,11 +47,12 @@ public class Cartrs {
     public Cartrs() {
            }
 
-    public Cartrs(Integer idCartrs, String chip, String typeCartr, String typePrintersFromCartrs) {
-        this.idCartrs = idCartrs;
-        this.chip = chip;
-        this.typeCartr = typeCartr;
-        this.typePrintersFromCartrs = typePrintersFromCartrs;
+    public Integer getPrintersIdPrinters() {
+        return printersIdPrinters;
+    }
+
+    public void setPrintersIdPrinters(Integer printersIdPrinters) {
+        this.printersIdPrinters = printersIdPrinters;
     }
 
     @Override
@@ -85,12 +63,7 @@ public class Cartrs {
         return Objects.equals(idCartrs, cartrs.idCartrs) &&
                 Objects.equals(chip, cartrs.chip) &&
                 Objects.equals(typeCartr, cartrs.typeCartr) &&
-                Objects.equals(typePrintersFromCartrs, cartrs.typePrintersFromCartrs);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idCartrs, chip, typeCartr, typePrintersFromCartrs);
+                Objects.equals(printersIdPrinters, cartrs.printersIdPrinters);
     }
 
     @Override
@@ -99,7 +72,20 @@ public class Cartrs {
                 "idCartrs=" + idCartrs +
                 ", chip='" + chip + '\'' +
                 ", typeCartr='" + typeCartr + '\'' +
-                ", typePrintersFromCartrs='" + typePrintersFromCartrs + '\'' +
+                ", printersIdPrinters=" + printersIdPrinters +
                 '}';
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCartrs, chip, typeCartr, printersIdPrinters);
+    }
+
+    public Cartrs(Integer idCartrs, String chip, String typeCartr, Integer printersIdPrinters) {
+        this.idCartrs = idCartrs;
+        this.chip = chip;
+        this.typeCartr = typeCartr;
+        this.printersIdPrinters = printersIdPrinters;
+    }
+
 }

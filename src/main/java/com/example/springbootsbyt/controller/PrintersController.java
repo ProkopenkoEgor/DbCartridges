@@ -43,7 +43,7 @@ public class PrintersController {
         for(int i=0; i<printers1.size(); i++){
             printer=printers1.get(i);
             if(str.equalsIgnoreCase(printer.getTypePrinters())==true){
-                bindingResult.rejectValue("typePrinters","error.typePrintres","Такой тип принтера уже есть");
+                bindingResult.rejectValue("typePrinters","error.typePrinters","Такой тип принтера уже есть");
                 return "/printers-create";
             }
         }

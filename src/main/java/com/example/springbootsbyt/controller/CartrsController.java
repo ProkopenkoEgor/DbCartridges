@@ -27,7 +27,9 @@ public class CartrsController {
     @GetMapping("/cartrs")
     public String findAllCartrs(Model model) {
         List<Cartrs> cartrs = cartrsServiceImpl.findAll();
+        List<Printers> printers = printersServiceImpl.findAll();
         model.addAttribute("cartrs", cartrs);
+        model.addAttribute("printers", printers);
         return "cartrs-list";
 
     }

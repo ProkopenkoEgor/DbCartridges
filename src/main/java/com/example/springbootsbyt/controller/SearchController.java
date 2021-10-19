@@ -11,11 +11,13 @@ import com.example.springbootsbyt.service.impl.PrintersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -38,6 +40,7 @@ public class SearchController {
         this.historyServiceImpl = historyServiceImpl;
         this.printersServiceImpl = printersServiceImpl;
     }
+
     @GetMapping("/search")
     public String findAll(Model model) {
         List<Cartridges> cartridges = cartridgeServiceImpl.findAll();

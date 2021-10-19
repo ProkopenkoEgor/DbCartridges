@@ -20,13 +20,6 @@ public class Printers {
     private String modelFromPrinters;
 
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name = "cartrs_has_printers",
-            joinColumns = @JoinColumn(name = "printers_id_printers"),
-            inverseJoinColumns = @JoinColumn(name = "cartrs_id_cartrs")
-    )
-    private List<Cartrs> cartrsList;
-
     public Integer getIdPrinters() {
         return idPrinters;
     }
@@ -49,14 +42,6 @@ public class Printers {
 
     public void setModelFromPrinters(String modelFromPrinters) {
         this.modelFromPrinters = modelFromPrinters;
-    }
-
-    public List<Cartrs> getCartrsList() {
-        return cartrsList;
-    }
-
-    public void setCartrsList(List<Cartrs> cartrsList) {
-        this.cartrsList = cartrsList;
     }
 
     public Printers(Integer idPrinters, String typePrinters, String modelFromPrinters) {
