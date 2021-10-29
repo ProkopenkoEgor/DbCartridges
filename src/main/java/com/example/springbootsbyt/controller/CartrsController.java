@@ -53,7 +53,7 @@ public class CartrsController {
         List<Printers> printers = printersServiceImpl.findAll();
         model.addAttribute("cartrs", cartrs);
         model.addAttribute("printers", printers);
-        return "cartrs-update";
+        return "/cartrs-update";
     }
 
     @PostMapping("/cartrs-update")

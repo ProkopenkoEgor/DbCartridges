@@ -1,7 +1,9 @@
 package com.example.springbootsbyt.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "cartrs")
@@ -44,15 +46,23 @@ public class Cartrs {
         this.typeCartr = typeCartr;
     }
 
-    public Cartrs() {
-           }
-
     public Integer getPrintersIdPrinters() {
         return printersIdPrinters;
     }
 
     public void setPrintersIdPrinters(Integer printersIdPrinters) {
         this.printersIdPrinters = printersIdPrinters;
+    }
+
+    public Cartrs() {
+           }
+
+    public Cartrs(Integer idCartrs, String chip, String typeCartr, Integer printersIdPrinters) {
+        this.idCartrs = idCartrs;
+        this.chip = chip;
+        this.typeCartr = typeCartr;
+        this.printersIdPrinters = printersIdPrinters;
+
     }
 
     @Override
@@ -67,25 +77,17 @@ public class Cartrs {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(idCartrs, chip, typeCartr, printersIdPrinters);
+    }
+
+    @Override
     public String toString() {
         return "Cartrs{" +
                 "idCartrs=" + idCartrs +
                 ", chip='" + chip + '\'' +
                 ", typeCartr='" + typeCartr + '\'' +
-                ", printersIdPrinters=" + printersIdPrinters +
+                ", printersIdPrinters='" + printersIdPrinters + '\'' +
                 '}';
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idCartrs, chip, typeCartr, printersIdPrinters);
-    }
-
-    public Cartrs(Integer idCartrs, String chip, String typeCartr, Integer printersIdPrinters) {
-        this.idCartrs = idCartrs;
-        this.chip = chip;
-        this.typeCartr = typeCartr;
-        this.printersIdPrinters = printersIdPrinters;
-    }
-
 }

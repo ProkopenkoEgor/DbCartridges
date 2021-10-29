@@ -1,8 +1,10 @@
 package com.example.springbootsbyt.model;
 
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "printers")
@@ -12,13 +14,20 @@ public class Printers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrinters;
 
-
     @Column(unique = true, name = "type_printers")
     private String typePrinters;
 
-    @Column(name = "model_from_printers")
-    private String modelFromPrinters;
+    @Column(name = "models_id_models")
+    private Integer modelsIdModels;
 
+    public Printers() {
+    }
+
+    public Printers(Integer idPrinters, String typePrinters, Integer modelsIdModels) {
+        this.idPrinters = idPrinters;
+        this.typePrinters = typePrinters;
+        this.modelsIdModels = modelsIdModels;
+    }
 
     public Integer getIdPrinters() {
         return idPrinters;
@@ -36,21 +45,12 @@ public class Printers {
         this.typePrinters = typePrinters;
     }
 
-    public String getModelFromPrinters() {
-        return modelFromPrinters;
+    public Integer getModelsIdModels() {
+        return modelsIdModels;
     }
 
-    public void setModelFromPrinters(String modelFromPrinters) {
-        this.modelFromPrinters = modelFromPrinters;
-    }
-
-    public Printers(Integer idPrinters, String typePrinters, String modelFromPrinters) {
-        this.idPrinters = idPrinters;
-        this.typePrinters = typePrinters;
-        this.modelFromPrinters = modelFromPrinters;
-    }
-
-    public Printers() {
+    public void setModelsIdModels(Integer modelsIdModels) {
+        this.modelsIdModels = modelsIdModels;
     }
 
     @Override
@@ -60,12 +60,12 @@ public class Printers {
         Printers printers = (Printers) o;
         return Objects.equals(idPrinters, printers.idPrinters) &&
                 Objects.equals(typePrinters, printers.typePrinters) &&
-                Objects.equals(modelFromPrinters, printers.modelFromPrinters);
+                Objects.equals(modelsIdModels, printers.modelsIdModels);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idPrinters, typePrinters, modelFromPrinters);
+        return Objects.hash(idPrinters, typePrinters, modelsIdModels);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Printers {
         return "Printers{" +
                 "idPrinters=" + idPrinters +
                 ", typePrinters='" + typePrinters + '\'' +
-                ", modelFromPrinters='" + modelFromPrinters + '\'' +
+                ", modelsIdModels=" + modelsIdModels +
                 '}';
     }
 }

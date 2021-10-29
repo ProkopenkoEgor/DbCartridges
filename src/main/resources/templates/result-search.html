@@ -29,7 +29,7 @@
                     <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cartrs">Типы картриджей</a>
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/printers">Модели принтеров</a>
@@ -44,17 +44,21 @@
         </div>
     </div>
 </nav>
+<div class="container-fluid">
 <div th:switch="${cartridges}">
     <h2 th:case="null">Картриджи не найдены!</h2>
     <div th:case="*">
-        <h2>Картриджи</h2>
-        <table>
-            <thead>
+        <div class="mx-auto" style="width: 200px;">
+            <h2>Картриджи</h2>
+        </div>
+        <table class="table table-hover table-bordered">
+            <thead class="table-light">
             <tr>
                 <th>Id</th>
                 <th>Инвентарный номер</th>
-                <th>Тип Картриджа</th>
-                <th>Модель принтера</th>
+                <th>Модель Картриджа</th>
+                <th>Модель Принтера</th>
+                <th>Производитель</th>
                 <th>Чип</th>
                 <th>Ресурс</th>
                 <th>Город</th>
@@ -72,10 +76,19 @@
                     th:switch="${cart.idCartrs}"
                     th:case="${cartridge.cartrsIdCartrs}"
                     th:text="${cart.typeCartr}"></td>
-                <td th:each="print:${printers}"
-                    th:switch="${print.idPrinters}"
-                    th:case="${cartridge.printersIdPrinters}"
-                    th:text="${print.typePrinters}"></td>
+                <div th:each="cart:${cartrs}" th:switch="${cartridge.cartrsIdCartrs}" th:case="${cart.idCartrs}">
+                    <td th:each="print:${printers}"
+                        th:switch="${print.idPrinters}"
+                        th:case="${cart.printersIdPrinters}"
+                        th:text="${print.typePrinters}"></td>
+                    <div th:each="man:${manufacturers}">
+                        <div th:each="print:${printers}" th:switch="${man.idModels}" th:case="${print.modelsIdModels}">
+                            <td th:switch="${print.idPrinters}"
+                                th:case="${cart.printersIdPrinters}"
+                                th:text="${man.modelFromPrinters}"></td>
+                        </div>
+                    </div>
+                </div>
                 <td th:each="cart:${cartrs}"
                     th:switch="${cart.idCartrs}"
                     th:case="${cartridge.cartrsIdCartrs}"
@@ -89,6 +102,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </body>
 </html>

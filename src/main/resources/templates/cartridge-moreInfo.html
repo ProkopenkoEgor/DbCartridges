@@ -29,7 +29,7 @@
                     <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cartrs">Типы картриджей</a>
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/printers">Модели принтеров</a>
@@ -44,17 +44,20 @@
         </div>
     </div>
 </nav>
+<div class="container">
 <div th:switch="${cartridges}">
     <div th:case="*">
-        <h2>История картриджа</h2>
-        <table>
-            <thead>
+        <div class="mx-auto" style="width: 200px;">
+            <h2>История картриджа</h2>
+        </div>
+        <table class="table table-hover table-bordered">
+            <thead class="table-light">
             <tr>
-                <th>Id Истории</th>
-                <th>Дата Статуса</th>
-                <th>Статус</th>
-                <th>Инвентарный номер</th>
-                <th colspan="2">Операции</th>
+                <th class="text-center">Id Истории</th>
+                <th class="text-center">Дата Статуса</th>
+                <th class="text-center">Статус</th>
+                <th class="text-center">Инвентарный номер</th>
+                <th colspan="2" class="text-center">Операции</th>
             </tr>
             </thead>
             <tbody>
@@ -70,7 +73,8 @@
             </tbody>
         </table>
     </div>
-    <p><a th:href="@{/history-create/{id}(id=${id})}">Создать историю</a></p>
+    <p><a class="btn btn-primary mt-3" th:href="@{/history-create/{id}(id=${id})}">Создать историю</a></p>
+</div>
 </div>
 </body>
 </html>

@@ -38,9 +38,6 @@ public class Cartridges {
     @Column(name = "cartrs_id_cartrs")
     private Integer cartrsIdCartrs;
 
-    @Column(name = "printers_id_printers")
-    private Integer printersIdPrinters;
-
     @Column(name = "count")
     private Integer count;
 
@@ -108,13 +105,6 @@ public class Cartridges {
         this.cartrsIdCartrs = cartrsIdCartrs;
     }
 
-    public Integer getPrintersIdPrinters() {
-        return printersIdPrinters;
-    }
-
-    public void setPrintersIdPrinters(Integer printersIdPrinters) {
-        this.printersIdPrinters = printersIdPrinters;
-    }
 
     public Integer getCount() {
         return count;
@@ -135,7 +125,6 @@ public class Cartridges {
                 ", city='" + city + '\'' +
                 ", executor='" + executor + '\'' +
                 ", cartrsIdCartrs=" + cartrsIdCartrs +
-                ", printersIdPrinters=" + printersIdPrinters +
                 ", count=" + count +
                 '}';
     }
@@ -153,13 +142,12 @@ public class Cartridges {
                 Objects.equals(city, that.city) &&
                 Objects.equals(executor, that.executor) &&
                 Objects.equals(cartrsIdCartrs, that.cartrsIdCartrs) &&
-                Objects.equals(printersIdPrinters, that.printersIdPrinters) &&
                 Objects.equals(count, that.count);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, inventoryNumber, resource, barcode, comments, city, executor, cartrsIdCartrs, printersIdPrinters, count);
+        return Objects.hash(id, inventoryNumber, resource, barcode, comments, city, executor, cartrsIdCartrs, count);
     }
 
 }

@@ -29,7 +29,7 @@
                     <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cartrs">Типы картриджей</a>
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/printers">Модели принтеров</a>
@@ -53,8 +53,8 @@
         <tr>
             <th for="chip">Чип</th>
             <td><select th:field="*{chip}" id="chip" required>
-                <option value="есть">есть</option>
-                <option value="нет">нет</option>
+                <option value="+">+</option>
+                <option value="-">-</option>
             </select>
             </td>
         </tr>
@@ -69,11 +69,11 @@
             </td>
         </tr>
         <tr>
-            <th for="typeCartr">Тип картриджа</th>
-            <td><input type="text" th:field="*{typeCartr}" id="typeCartr" placeholder="typeCartr" required></td>
+            <th for="typeCartr">Модель картриджа</th>
+            <td><input type="text" th:field="*{typeCartr}" id="typeCartr" required></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Исправить тип картриджа"></td>
+            <td><input type="submit" value="Исправить модель картриджа"></td>
         </tr>
         </tbody>
     </table>

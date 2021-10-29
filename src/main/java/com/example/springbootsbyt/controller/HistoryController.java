@@ -24,14 +24,6 @@ public class HistoryController {
         this.cartridgeServiceImpl = cartridgeService1;
     }
 
-    @GetMapping("/history")
-    public String findAllHistory(Model model){
-        List<History> history = historyServiceImpl.findAll();
-        List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
-        model.addAttribute("history", history);
-        model.addAttribute("cartridges", cartridges);
-        return "history-list";
-    }
     @GetMapping("/history-create/{id}")
     public String createHistoryForm(@PathVariable("id") Integer id,Model model, History history) {
         Cartridges cartridges = cartridgeServiceImpl.findById(id);

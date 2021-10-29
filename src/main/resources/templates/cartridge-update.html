@@ -29,7 +29,7 @@
                     <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cartrs">Типы картриджей</a>
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/printers">Модели принтеров</a>
@@ -44,56 +44,66 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/cartridge-update}" th:object="${cartridge}" method="post">
-    <table>
-        <tbody>
-        <tr>
-        <td><input readonly type="hidden" th:field="*{id}"></td>
-        </tr>
-        <tr>
-            <th for="inventoryNumber">Инвентарный номер</th>
-            <td><input type="text" th:field="*{inventoryNumber}" id="inventoryNumber" placeholder="inventoryNumber"></td>
-        </tr>
-        <tr>
-            <th for="resource">Ресурс</th>
-            <td><input type="text" th:field="*{resource}" id="resource" placeholder="resource"></td>
-        </tr>
-        <tr>
-            <th for="city">Отдел</th>
-            <td><input type="text" th:field="*{city}" id="city" placeholder="city"></td>
-        </tr>
-        <tr>
-            <th for="executor">Исполнитель</th>
-            <td><input type="text" th:field="*{executor}" id="executor" placeholder="executor"></td>
-        </tr>
-        <tr>
-            <th for="comments">Описание</th>
-            <td><input type="text" th:field="*{comments}" id="comments" placeholder="comments"></td>
-        </tr>
-        <tr>
-            <td>Выберите модель принтера</td>
-            <td><select th:field="*{printersIdPrinters}" id="printersIdPrinters" required>
-                <option th:each="print : ${printers}"
-                        th:value="${print.idPrinters}"
-                        th:text="${print.typePrinters}">
-                </option>
-            </select>
-            </td>
-        </tr>
-      <tr>  <td>Выберите тип картриджа</td>
-            <td><select th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs" required>
-                <option th:each="cart : ${cartrs}"
-                        th:value="${cart.idCartrs}"
-                        th:text="${cart.typeCartr}">
-                </option>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Исправить картридж"></td>
-        </tr>
-        </tbody>
-    </table>
+<form action="#" th:action="@{/cartridge-update/{id}(id=${id})}" modelAttribute="cartridge" th:object="${cartridge}" method="post">
+<!--            <tr>-->
+<!--                <td><input readonly type="hidden" th:field="${id}"></td>-->
+<!--            </tr>-->
+            <div class="container ms-auto mt-5 fw-bold" >
+                <div class="row mb-3">
+                    <label for="inventoryNumber" class="col-sm-2 col-form-label">Инвентарный номер</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control w-50"  th:field="*{inventoryNumber}"
+                               id="inventoryNumber">
+                        <div style="color:red" th:if="${#fields.hasErrors('inventoryNumber')}" th:errors="*{inventoryNumber}">Name Error</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="resource" class="col-sm-2 col-form-label">Ресурс</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control w-50"  th:field="*{resource}"
+                               id="resource">
+                        <div style="color:red" th:if="${#fields.hasErrors('resource')}" th:errors="*{resource}">Name Error</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="city" class="col-sm-2 col-form-label">Город</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control w-50" th:field="*{city}"
+                               id="city">
+                        <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="executor" class="col-sm-2 col-form-label">Исполнитель</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control w-50" th:field="*{executor}" id="executor">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="comments" class="col-sm-2 col-form-label">Описание</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control w-50" th:field="*{comments}" id="comments">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="count" class="col-sm-2 col-form-label">Количество заправок</label>
+                    <div class="col-sm-7">
+                        <input readonly type="number" class="form-control w-50" th:field="*{count}" th:value="*{count=0}" id="count">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="cartrsIdCartrs" class="col-sm-2 col-form-label">Выберите модель картриджа</label>
+                    <div class="col-sm-7">
+                        <select class="form-select w-50" th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs" required>
+                            <option th:each="cart : ${cartrs}"
+                                    th:value="${cart.idCartrs}"
+                                    th:text="${cart.typeCartr}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            <td><input class="btn btn-primary mt-3" type="submit" value="Исправить картридж"></td>
+            </div>
 </form>
 </body>
 </html>

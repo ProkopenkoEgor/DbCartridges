@@ -28,7 +28,7 @@
                     <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cartrs">Типы картриджей</a>
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/printers">Модели принтеров</a>
@@ -55,7 +55,13 @@
         </tr>
         <tr>
             <th for="modelFromPrinters">Производитель</th>
-            <td><input type="text" th:field="*{modelFromPrinters}" id="modelFromPrinters" required></td>
+            <td><select th:field="*{modelsIdModels}" id="modelsIdModels" >
+                <option th:each="model:${manufacturers}"
+                        th:value="${model.idModels}"
+                        th:text="${model.modelFromPrinters}">
+                </option>
+            </select>
+            </td>
         </tr>
         <tr>
             <td><input type="submit" value="Исправить картридж"></td>
