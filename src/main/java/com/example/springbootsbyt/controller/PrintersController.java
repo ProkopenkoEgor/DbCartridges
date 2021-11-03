@@ -41,10 +41,16 @@ public class PrintersController {
     }
 
     @PostMapping("/printers-create")
-    public String createPrinters(@Valid Printers printers, BindingResult bindingResult) {
+    public String createPrinters(@Valid Printers printers, BindingResult bindingResult,Model model) {
+        if (bindingResult.hasErrors()){
+            List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
+            model.addAttribute("manufacturers",manufacturers);
+            return "printers-create";
+        }
             Printers printer = null;
             List<Printers> printers1 = printersServiceImpl.findAll();
-            List<Manufacturers> models = manufacturerServiceImpl.findAll();
+            List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
+            model.addAttribute("manufacturers",manufacturers);
             String str = printers.getTypePrinters();
             for (int i = 0; i < printers1.size(); i++) {
                 printer = printers1.get(i);
@@ -57,8 +63,8 @@ public class PrintersController {
         printersServiceImpl.savePrinters(printers);
         return "redirect:/printers";
     }
-    @GetMapping("/printers-update/{id}")
-    public String updatePrintersForm(@PathVariable("id") Integer id, Model model){
+    @GetMapping("/printers-update/{idPrinters}")
+    public String updatePrintersForm(@PathVariable("idPrinters") Integer id, Model model){
         Printers printers = printersServiceImpl.findById(id);
         List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
         model.addAttribute("printers",printers);
@@ -66,8 +72,25 @@ public class PrintersController {
         return "printers-update";
     }
 
-    @PostMapping("/printers-update")
-    public String updatePrinters(Printers printers){
+    @PostMapping("/printers-update/{idPrinters}")
+    public String updatePrinters(@PathVariable("idPrinters") int idPrinters,@Valid Printers printers,BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
+            model.addAttribute("manufacturers",manufacturers);
+            return "printers-update";
+        }
+            Printers printer = null;
+            List<Printers> printers1 = printersServiceImpl.findAll();
+            List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
+            model.addAttribute("manufacturers",manufacturers);
+            String str = printers.getTypePrinters();
+            for (int i = 0; i < printers1.size(); i++) {
+                printer = printers1.get(i);
+                if (str.equalsIgnoreCase(printer.getTypePrinters()) == true) {
+                    bindingResult.rejectValue("typePrinters", "error.typePrinters", "Такой тип принтера уже существует");
+                    return "printers-update";
+                }
+            }
         printersServiceImpl.savePrinters(printers);
         return"redirect:/printers";
     }

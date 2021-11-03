@@ -45,27 +45,31 @@
     </div>
 </nav>
 <form action="#" th:action="@{/printers-create}" th:object="${printers}" method="post">
-<table>
-    <tbody>
-    <tr>
-        <th for="typePrinters">Модель принтера</th>
-        <td><input type="text" th:field="*{typePrinters}" id="typePrinters" required>
-            <div style="color:red" th:if="${#fields.hasErrors('typePrinters')}" th:errors="*{typePrinters}">Name Error</div>
-        </td>
-    </tr>
-    <tr>
-        <td>Производитель</td>
-        <td><select th:field="*{modelsIdModels}" id="modelsIdModels" >
-            <option th:each="model:${manufacturers}"
-                    th:value="${model.idModels}"
-                    th:text="${model.modelFromPrinters}">
-            </option>
-        </select>
-        </td>
-    </tr>
-    <td><input type="submit" value="Создать Принтер"></td>
-    </tbody>
-</table>
+    <div class="container ms-auto mt-5 fw-bold" >
+        <tr>
+            <td><input readonly type="hidden" th:field="*{idPrinters}"></td>
+        </tr>
+        <div class="row mb-3">
+            <label for="typePrinters" class="col-sm-2 col-form-label">Модель принтера</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control w-50"  th:field="*{typePrinters}"
+                       id="typePrinters">
+                <div style="color:red" th:if="${#fields.hasErrors('typePrinters')}" th:errors="*{typePrinters}">Name Error</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="modelsIdModels" class="col-sm-2 col-form-label">Выберите производителя</label>
+            <div class="col-sm-7">
+                <select class="form-select w-50" th:field="*{modelsIdModels}" id="modelsIdModels" required>
+                    <option th:each="model:${manufacturers}"
+                            th:value="${model.idModels}"
+                            th:text="${model.modelFromPrinters}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary mt-2" value="Создать модель принтера">
+    </div>
 </form>
 </body>
 </html>

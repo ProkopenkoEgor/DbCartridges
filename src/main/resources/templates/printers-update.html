@@ -43,31 +43,31 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/printers-update}" th:object="${printers}" method="post">
-    <table>
-        <tbody>
+<form action="#" th:action="@{/printers-update/{idPrinters}(idPrinters=${idPrinters})}" th:object="${printers}" method="post">
+    <div class="container ms-auto mt-5 fw-bold" >
         <tr>
             <td><input readonly type="hidden" th:field="*{idPrinters}"></td>
         </tr>
-        <tr>
-            <th for="typePrinters">Модель принтера</th>
-            <td><input type="text" th:field="*{typePrinters}" id="typePrinters" required></td>
-        </tr>
-        <tr>
-            <th for="modelFromPrinters">Производитель</th>
-            <td><select th:field="*{modelsIdModels}" id="modelsIdModels" >
-                <option th:each="model:${manufacturers}"
-                        th:value="${model.idModels}"
-                        th:text="${model.modelFromPrinters}">
-                </option>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Исправить картридж"></td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="row mb-3">
+            <label for="typePrinters" class="col-sm-2 col-form-label">Модель принтера</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control w-50"  th:field="*{typePrinters}"
+                       id="typePrinters">
+                <div style="color:red" th:if="${#fields.hasErrors('typePrinters')}" th:errors="*{typePrinters}">Name Error</div>            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="modelsIdModels" class="col-sm-2 col-form-label">Выберите производителя</label>
+            <div class="col-sm-7">
+                <select class="form-select w-50" th:field="*{modelsIdModels}" id="modelsIdModels" required>
+                    <option th:each="model:${manufacturers}"
+                            th:value="${model.idModels}"
+                            th:text="${model.modelFromPrinters}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary mt-2" value="Исправить модель принтера">
+    </div>
 </form>
 </body>
 </html>

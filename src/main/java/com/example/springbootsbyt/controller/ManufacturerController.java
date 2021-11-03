@@ -30,19 +30,22 @@ public class ManufacturerController {
 
     @GetMapping("/create-model")
     public String createModelsForm(Manufacturers manufacturers) {
-        return "create-model";
+        return "printers-list";
     }
 
     @PostMapping("/create-model")
-    public String createModel(@Valid Manufacturers manufacturers, BindingResult bindingResult) {
-        Manufacturers model = null;
+    public String createModel(@Valid Manufacturers manufacturers, BindingResult bindingResult,Model model) {
+        if (bindingResult.hasErrors()){
+            return "redirect:/printers";
+        }
+        Manufacturers manufacturers2 = null;
         List<Manufacturers> manufacturers1 = manufacturerServiceImpl.findAll();
         String str = manufacturers.getModelFromPrinters();
         for (int i = 0; i < manufacturers1.size(); i++) {
-            model = manufacturers1.get(i);
-            if (str.equalsIgnoreCase(model.getModelFromPrinters()) == true) {
+            manufacturers2 = manufacturers1.get(i);
+            if (str.equalsIgnoreCase(manufacturers2.getModelFromPrinters()) == true) {
                 bindingResult.rejectValue("modelFromPrinters", "error.modelFromPrinters", "Такой производитель уже существует");
-                return "/create-model";
+                return "redirect:/printers";
             }
 
         }

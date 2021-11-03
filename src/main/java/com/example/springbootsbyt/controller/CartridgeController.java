@@ -73,18 +73,15 @@ public class CartridgeController {
     public String updateCartridgeForm(@PathVariable("id") int id, Model model) {
         Cartridges cartridge = cartridgeServiceImpl.findById(id);
         List<Cartrs> cartrs = cartrsServiceImpl.findAll();
-        List<Printers> printers = printersServiceImpl.findAll();
-        model.addAttribute("cartridge", cartridge);
+        model.addAttribute("cartridges", cartridge);
         model.addAttribute("cartrs", cartrs);
-        model.addAttribute("printers", printers);
         return "cartridge-update";
     }
 
     @PostMapping("/cartridge-update/{id}")
-    public String updateCartridgeForm1(@Valid @ModelAttribute("cartridge") Cartridges cartridge,BindingResult bindingResult,Model model) {
+    public String updateCartridgeForm1(@PathVariable("id") int id,@Valid  Cartridges cartridge,BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
             List<Cartrs> cartrs = cartrsServiceImpl.findAll();
-            model.addAttribute("cartridge", cartridge);
             model.addAttribute("cartrs", cartrs);
             return "cartridge-update";
         }

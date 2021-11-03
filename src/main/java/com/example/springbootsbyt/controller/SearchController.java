@@ -56,7 +56,7 @@ public class SearchController {
         model.addAttribute("cartrs", cartrs);
         model.addAttribute("printers", printers);
         model.addAttribute("manufacturers",manufacturers);
-        return "result-search";
+        return "cartridge-list";
     }
 
     @PostMapping("/Data-Search")

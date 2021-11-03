@@ -2,6 +2,7 @@ package com.example.springbootsbyt.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,6 +15,7 @@ public class Printers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrinters;
 
+    @NotBlank(message = "Поле не может быть пустым")
     @Column(unique = true, name = "type_printers")
     private String typePrinters;
 

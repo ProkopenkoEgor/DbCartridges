@@ -8,6 +8,7 @@
     <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet" />
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link href="/css/first.css" rel="stylesheet" />
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -41,7 +42,10 @@
         <div class="mx-auto" style="width: 200px;">
             <h2>Принтеры</h2>
             <p><a class="btn btn-primary btn-sm" href="/printers-create">Создать модель принтера</a></p>
-            <p><a class="btn btn-primary btn-sm" href="/create-model">Внести производителя</a></p>
+            <button type="button" class="btn btn-warning" href="/printers-list" data-bs-toggle="modal" data-bs-target="#CreateManufacturers">
+                Внести производителя
+            </button>
+<!--            <p><a class="btn btn-primary btn-sm" href="/create-model">Внести производителя</a></p>-->
         </div>
         <table class="table table-hover table-bordered">
             <thead class="table-light">
@@ -92,6 +96,7 @@
 </div>
 </div>
 </div>
+
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -109,6 +114,80 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="CreateManufacturers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form action="#" th:action="@{/create-model}" th:object="${manufacturers}" method="post" id="addmanufacturers">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Внесение производителя</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modelFromPrinters" class="col-form-label">Производитель</label>
+                            <input type="text" class="mb-3" id="modelFromPrinters" name="modelFromPrinters">
+                            <small></small>
+<!--                            <div style="color:red" th:if="${#fields.hasErrors('modelFromPrinters')}" th:errors="*{modelFromPrinters}">Name Error</div>-->
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                    <input  type="submit" id="manufacturers" value="Создать Производителя" class="btn btn-primary">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<script>-->
+<!--    $("#manufacturers").click(function () {-->
+<!--        var modelFromPrinters = $("#modelFromPrinters").val().trim();-->
+<!--        if (modelFromPrinters === ''){-->
+<!--            alert("Ошибка: Поля либо пустые, либо такой производитель уже есть.")-->
+<!--        }-->
+<!--    })-->
+
+<!--</script>-->
+
+<script>
+    const form = document.getElementById('addmanufacturers');
+    const modelFromPrinters = document.getElementById('modelFromPrinters');
+
+    form.addEventListener('submit', e => {
+        const modelFromPrintersValue = modelFromPrinters.value.trim();
+        if(modelFromPrintersValue === '') {
+            setErrorFor(modelFromPrinters, 'Поле не может быть пустым');
+            e.preventDefault();
+        } else {
+            setSuccessFor(modelFromPrinters);
+            e.stopPropagation();
+        }
+        // if (modelFromPrintersValue === ){
+        //     setErrorFor(modelFromPrinters, 'Такой производитель уже есть');
+        //     e.preventDefault()
+        // }else {
+        //     setSuccessFor(modelFromPrinters);
+        //     e.stopPropagation();
+        // }
+    });
+
+    function setErrorFor(input, message) {
+        const formControl = input.parentElement;
+        const small = formControl.querySelector('small');
+        formControl.className = 'form-control error';
+        small.innerText = message;
+    }
+
+    function setSuccessFor(input) {
+        const formControl = input.parentElement;
+        formControl.className = 'form-control success';
+
+
+    }
+</script>
+
+
 <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
 </body>
 </html>

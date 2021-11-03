@@ -7,10 +7,12 @@ import com.example.springbootsbyt.service.impl.PrintersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -42,7 +44,12 @@ public class CartrsController {
     }
 
     @PostMapping("/cartrs-create")
-    public String createCartrs(Cartrs cartrs) {
+    public String createCartrs(@Valid Cartrs cartrs,BindingResult bindingResult,Model model) {
+        if(bindingResult.hasErrors()){
+            List<Printers> printers = printersServiceImpl.findAll();
+            model.addAttribute("printers", printers);
+            return "cartrs-create";
+        }
         cartrsServiceImpl.saveCartrs(cartrs);
         return "redirect:/cartrs";
     }
@@ -56,8 +63,13 @@ public class CartrsController {
         return "/cartrs-update";
     }
 
-    @PostMapping("/cartrs-update")
-    public String updateUser(Cartrs cartrs) {
+    @PostMapping("/cartrs-update/{idCartrs}")
+    public String updateUser(@PathVariable("idCartrs") int id, @Valid Cartrs cartrs, BindingResult bindingResult,Model model) {
+        if(bindingResult.hasErrors()){
+            List<Printers> printers = printersServiceImpl.findAll();
+            model.addAttribute("printers", printers);
+            return "cartrs-update";
+        }
         cartrsServiceImpl.saveCartrs(cartrs);
         return "redirect:/cartrs";
     }
