@@ -45,7 +45,6 @@
             <button type="button" class="btn btn-warning" href="/printers-list" data-bs-toggle="modal" data-bs-target="#CreateManufacturers">
                 Внести производителя
             </button>
-<!--            <p><a class="btn btn-primary btn-sm" href="/create-model">Внести производителя</a></p>-->
         </div>
         <table class="table table-hover table-bordered">
             <thead class="table-light">
@@ -77,18 +76,18 @@
     <h2 th:case="null">Производители не найдены</h2>
     <div th:case="*">
         <h2>Производители</h2>
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered" id="models">
             <thead class="table-light">
             <tr>
-                <th>Id принтеров</th>
                 <th>Производитель</th>
+                <th>Id принтеров</th>
                 <th colspan="1">Операции</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="model : ${manufacturers}">
-                <td th:text="${model.idModels}"></td>
                 <td th:text="${model.modelFromPrinters}"></td>
+                <td th:text="${model.idModels}"></td>
                 <td><a th:href="@{models-delete/{idModels}(idModels=${model.idModels})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">Удалить</a></td>
             </tr>
             </tbody>
@@ -128,7 +127,6 @@
                             <label for="modelFromPrinters" class="col-form-label">Производитель</label>
                             <input type="text" class="mb-3" id="modelFromPrinters" name="modelFromPrinters">
                             <small></small>
-<!--                            <div style="color:red" th:if="${#fields.hasErrors('modelFromPrinters')}" th:errors="*{modelFromPrinters}">Name Error</div>-->
                         </div>
                     </div>
                 <div class="modal-footer">
@@ -140,50 +138,32 @@
     </form>
 </div>
 
-<!--<script>-->
-<!--    $("#manufacturers").click(function () {-->
-<!--        var modelFromPrinters = $("#modelFromPrinters").val().trim();-->
-<!--        if (modelFromPrinters === ''){-->
-<!--            alert("Ошибка: Поля либо пустые, либо такой производитель уже есть.")-->
-<!--        }-->
-<!--    })-->
-
-<!--</script>-->
 
 <script>
     const form = document.getElementById('addmanufacturers');
     const modelFromPrinters = document.getElementById('modelFromPrinters');
-
     form.addEventListener('submit', e => {
         const modelFromPrintersValue = modelFromPrinters.value.trim();
-        if(modelFromPrintersValue === '') {
-            setErrorFor(modelFromPrinters, 'Поле не может быть пустым');
-            e.preventDefault();
-        } else {
-            setSuccessFor(modelFromPrinters);
-            e.stopPropagation();
+        let table1 = document.getElementById('models');
+        let firstChilds = table1.querySelectorAll("td:first-child");
+        let allName = [];
+        for(let i=0; i<firstChilds.length; ++i){
+            allName.push(firstChilds[i].innerHTML);
         }
-        // if (modelFromPrintersValue === ){
-        //     setErrorFor(modelFromPrinters, 'Такой производитель уже есть');
-        //     e.preventDefault()
-        // }else {
-        //     setSuccessFor(modelFromPrinters);
-        //     e.stopPropagation();
-        // }
+        let modelka = null;
+        for (let i=0;i<allName.length;i++) {
+            modelka = allName[i];
+            if (modelFromPrintersValue.toString() === modelka.toString() || modelFromPrintersValue === '') {
+                setErrorFor(modelFromPrinters, 'Поле не может быть пустым или такой производитель уже есть');
+                e.preventDefault();
+            }
+        }
     });
-
     function setErrorFor(input, message) {
         const formControl = input.parentElement;
         const small = formControl.querySelector('small');
         formControl.className = 'form-control error';
         small.innerText = message;
-    }
-
-    function setSuccessFor(input) {
-        const formControl = input.parentElement;
-        formControl.className = 'form-control success';
-
-
     }
 </script>
 

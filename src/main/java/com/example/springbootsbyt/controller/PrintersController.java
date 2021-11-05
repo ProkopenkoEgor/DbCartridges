@@ -79,18 +79,26 @@ public class PrintersController {
             model.addAttribute("manufacturers",manufacturers);
             return "printers-update";
         }
+        String str = printers.getTypePrinters();
+        Printers printers2 = printersServiceImpl.findById(idPrinters);
+        String str2 = printers2.getTypePrinters();
+        if (str.equalsIgnoreCase(str2)) {
+            printersServiceImpl.savePrinters(printers);
+            return "redirect:/printers";
+        }else {
             Printers printer = null;
             List<Printers> printers1 = printersServiceImpl.findAll();
             List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
-            model.addAttribute("manufacturers",manufacturers);
-            String str = printers.getTypePrinters();
+            model.addAttribute("manufacturers", manufacturers);
+            String str1 = printers.getTypePrinters();
             for (int i = 0; i < printers1.size(); i++) {
                 printer = printers1.get(i);
-                if (str.equalsIgnoreCase(printer.getTypePrinters()) == true) {
-                    bindingResult.rejectValue("typePrinters", "error.typePrinters", "Такой тип принтера уже существует");
+                if (str1.equalsIgnoreCase(printer.getTypePrinters()) == true) {
+                    bindingResult.rejectValue("typePrinters", "error.typePrinters", "Така модель принтера уже существует");
                     return "printers-update";
                 }
             }
+        }
         printersServiceImpl.savePrinters(printers);
         return"redirect:/printers";
     }

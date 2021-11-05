@@ -63,10 +63,11 @@
             <div class="col-sm-7">
                 <input type="text" class="form-control w-50"  th:field="*{typeCartr}"
                        id="typeCartr">
-                <div style="color:red" th:if="${#fields.hasErrors('typeCartr')}" th:errors="*{typeCartr}">Name Error</div>            </div>
+                <div style="color:red" th:if="${#fields.hasErrors('typeCartr')}" th:errors="*{typeCartr}">Name Error</div>
+            </div>
         </div>
         <div class="row mb-3">
-            <label for="printersIdPrinters" class="col-sm-2 col-form-label">Выберите есть ли чип</label>
+            <label for="printersIdPrinters" class="col-sm-2 col-form-label">Выберите модель принтера</label>
             <div class="col-sm-7">
                 <select class="form-select w-50" th:field="*{printersIdPrinters}" id="printersIdPrinters" required>
                     <option th:each="print:${printers}"
