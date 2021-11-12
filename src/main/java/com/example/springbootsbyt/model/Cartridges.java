@@ -29,7 +29,6 @@ public class Cartridges {
     private String comments;
 
     @Column(name = "city")
-    @NotBlank(message = "Поле не может быть пустым")
     private String city;
 
     @Column(name = "executor")
@@ -38,6 +37,7 @@ public class Cartridges {
     @Column(name = "cartrs_id_cartrs")
     private Integer cartrsIdCartrs;
 
+    @PositiveOrZero(message = "Число не должно быть меньше нуля")
     @Column(name = "count")
     private Integer count;
 

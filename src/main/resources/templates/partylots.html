@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с партиями</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="mx-auto" style="width: 200px;">
+        <h2>Партии</h2>
+        <br>
+
+        
+
+    </div>
+    <table class="table table-hover table-bordered" id="myTable">
+        <thead class="table-light">
+        <tr>
+            <th>Id Партии</th>
+            <th>Номер партии</th>
+            <th>Инвентарный номер</th>
+            <th>Город</th>
+            <th>Исполнитель</th>
+            <th>Модель картриджа</th>
+            <th>Модель принтера</th>
+            <th>Производитель</th>
+            <th>Количество заправок</th>
+            <th>Ресурс</th>
+            <th>Комментарии</th>
+<!--            <th>История</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pl : ${partylots}">
+            <td th:text="${pl.lotNumber}"></td>
+            <div th:each="cartridge :${cartridges}" th:switch="${pl.cartridgesId}" th:case="${cartridge.id}">
+                <td th:text="${cartridge.id}"></td>
+                <td th:text="${cartridge.inventoryNumber}"></td>
+                <td th:text="${cartridge.city}"></td>
+                <td th:text="${cartridge.executor}"></td>
+                <div th:each="cartr:${cartrs]" th:switch="${cartr.idCartrs}" th:case="${cartridge.cartrsIdCartrs]">
+                    <td th:text="${cartr.typeCartrs}"></td>
+                    <td th:text="${cartr.chip}"></td>
+                    <div th:each="print:${printers}" th:switch="${cartr.printersIdPrinters}" th:case="${print.idPrinters}">
+                        <td th:text="${print.typePrinters}"></td>
+                        <div th:each="man:${manufacturers}" th:switch="${print.modelsIdModels}" th:case="${man.idModels}">
+                            <td th:text="${modelFromPrinters}"></td>
+                        </div>
+                    </div>
+                </div>
+                <td th:text="${cartridge.count}"></td>
+                <td th:text="${cartridge.resource}"></td>
+                <td th:text="${cartridge.comments}"></td>
+            </div>
+<!--            <td><a th:href="@{printers-update/{id}(id=${print.idPrinters})}" class="btn btn-dark">Исправить</a></td>-->
+<!--            <td><a th:href="@{printers-delete/{id}(id=${print.idPrinters})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">Удалить</a></td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

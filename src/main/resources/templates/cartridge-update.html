@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    <title>Модели</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     <title>Исправить картридж</title>
+    <script type="text/javascript" language="javascript">
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function() { void (0) }
+    </script>
 </head>
 <body>
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"></a>
@@ -50,7 +51,7 @@
             </tr>
             <div class="container ms-auto mt-5 fw-bold" >
                 <div class="row mb-3">
-                    <label for="inventoryNumber" class="col-sm-2 col-form-label">Инвентарный номер</label>
+                    <label for="inventoryNumber" class="col-sm-2 col-form-label">Инвентарный номер*</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control w-50"  th:field="*{inventoryNumber}"
                                id="inventoryNumber">
@@ -58,7 +59,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="resource" class="col-sm-2 col-form-label">Ресурс</label>
+                    <label for="resource" class="col-sm-2 col-form-label">Ресурс*</label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control w-50"  th:field="*{resource}"
                                id="resource">
@@ -68,9 +69,16 @@
                 <div class="row mb-3">
                     <label for="city" class="col-sm-2 col-form-label">Город</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control w-50" th:field="*{city}"
-                               id="city">
-                        <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</div>
+                        <select class="form-select w-50" th:field="*{city}" id="city" required>
+                            <option value="Минск">Минск</option>
+                            <option value="Молодечно">Молодечно</option>
+                            <option value="Вилейка">Вилейка</option>
+                            <option value="Слуцк">Слуцк</option>
+                            <option value="Солигорск">Солигорск</option>
+                            <option value="Столбцы">Столбцы</option>
+                            <option value="Клецк">Клецк</option>
+                            <option value="Пуховичи">Пуховичи</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -88,7 +96,8 @@
                 <div class="row mb-3">
                     <label for="count" class="col-sm-2 col-form-label">Количество заправок</label>
                     <div class="col-sm-7">
-                        <input readonly type="number" class="form-control w-50" th:field="*{count}" th:value="*{count=0}" id="count">
+                        <input type="number" class="form-control w-50" th:field="*{count}" th:value="*{count=0}" id="count">
+                        <div style="color:red" th:if="${#fields.hasErrors('count')}" th:errors="*{count}">Name Error</div>
                     </div>
                 </div>
                 <div class="row mb-3">

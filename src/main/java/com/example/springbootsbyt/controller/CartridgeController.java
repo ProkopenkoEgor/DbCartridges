@@ -62,10 +62,13 @@ public class CartridgeController {
     @PostMapping("/cartridge-create")
     public String createCartridge(@Valid Cartridges cartridge, BindingResult bindingResult, Model model){
        if (bindingResult.hasErrors()) {
-               List<Cartrs> cartrs = cartrsServiceImpl.findAll();
-               model.addAttribute("cartrs", cartrs);
-               model.addAttribute("cartridges", cartridge);
-               return "cartridge-create";
+           List<Cartrs> cartrs = cartrsServiceImpl.findAll();
+           List<Printers> printers = printersServiceImpl.findAll();
+           List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
+           model.addAttribute("cartrs", cartrs);
+           model.addAttribute("printers", printers);
+           model.addAttribute("manufacturers",manufacturers);
+           return "cartridge-create";
            }
             Cartridges cartridge1 = null;
             List<Cartridges> cartridges1 = cartridgeServiceImpl.findAll();
@@ -114,12 +117,11 @@ public class CartridgeController {
             model.addAttribute("cartridges", cartridge);
             List<Cartrs> cartrs = cartrsServiceImpl.findAll();
             model.addAttribute("cartrs", cartrs);
-            String str1 = cartridge.getInventoryNumber();
             for (int i = 0; i < cartridges1.size(); i++) {
                 cartridge1 = cartridges1.get(i);
-                if (str1.equalsIgnoreCase(cartridge1.getInventoryNumber()) == true) {
+                if (str.equalsIgnoreCase(cartridge1.getInventoryNumber())) {
                     bindingResult.rejectValue("inventoryNumber", "error.inventoryNumber", "Такой инвентарный номер уже есть");
-                    return "cartridge-create";
+                    return "cartridge-update";
                 }
             }
         }
