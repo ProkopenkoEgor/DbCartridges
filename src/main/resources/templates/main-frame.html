@@ -32,8 +32,31 @@
                 </div>
             </div>
             <div class="ms-auto row row-cols-4">
-                <p><a class="btn btn-primary" type="button" href="/lots">Работа с партиями</a></p>
+                <button type="button" class="btn btn-primary" href="/main-frame" data-bs-toggle="modal" data-bs-target="#Lots">
+                    Работа с партиями
+                </button>
             </div>
+        </div>
+</div>
+<div class="modal fade" id="Lots" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Работа с партиями</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><a class="btn btn-primary" type="button" href="/lots">Создать партию</a></p>
+                    <br>
+                    <p><a class="btn btn-primary" type="button" href="/lots-look">Просмотреть партию по номеру партии</a></p>
+                    <br>
+                    <p><a class="btn btn-primary" type="button" href="/lots-look-history">Просмотреть партию по истории</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                </div>
+            </div>
+        </div>
 </div>
 </body>
 </html>

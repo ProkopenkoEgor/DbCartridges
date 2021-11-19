@@ -21,5 +21,7 @@ public interface CartridgeService  {
 
     public List<Cartridges> findAll(String keyword);
 
+    public List<Cartridges> findAllByInventoryNumber(String barcode);
+
 }
 

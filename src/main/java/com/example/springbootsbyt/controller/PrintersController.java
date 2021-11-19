@@ -94,7 +94,7 @@ public class PrintersController {
             for (int i = 0; i < printers1.size(); i++) {
                 printer = printers1.get(i);
                 if (str1.equalsIgnoreCase(printer.getTypePrinters()) == true) {
-                    bindingResult.rejectValue("typePrinters", "error.typePrinters", "Така модель принтера уже существует");
+                    bindingResult.rejectValue("typePrinters", "error.typePrinters", "Такая модель принтера уже существует");
                     return "printers-update";
                 }
             }

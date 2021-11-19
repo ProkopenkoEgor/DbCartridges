@@ -1,5 +1,6 @@
 package com.example.springbootsbyt.service.impl;
 
+import com.example.springbootsbyt.model.Cartridges;
 import com.example.springbootsbyt.model.Partylots;
 import com.example.springbootsbyt.repository.PartyLotsRepository;
 import com.example.springbootsbyt.service.PartyLotsService;
@@ -36,4 +37,25 @@ public class PartyLotsServiceImpl implements PartyLotsService {
     public void deleteById(Integer id) {
         partyLotsRepository.deleteById(id);
     }
+
+    public List<Partylots> findAllByLotNumber(String pl){
+        return partyLotsRepository.findAllByLotNumber(pl);
+    }
+    public  List<Partylots> findAllByLotNumberAndCartridgesIdAndHistoryIdHistory(String k1,int k2, int k3){
+        return partyLotsRepository.findAllByLotNumberAndCartridgesIdAndHistoryIdHistory(k1,k2,k3);
+    }
+
+    public List<Partylots> findDsLotNumber(){
+        return partyLotsRepository.findDsLotNumber();
+    }
+
+    public List<Partylots> findDsHistoryKeyword(int keyword){
+        return partyLotsRepository.findDsHistoryKeyword(keyword);
+    }
+
+    public List<Partylots> findDsHistory(){
+        return partyLotsRepository.findDsHistory();
+    }
+
+
 }

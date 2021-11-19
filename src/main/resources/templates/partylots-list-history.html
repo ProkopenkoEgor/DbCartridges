@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Партии по дате</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="mx-auto" style="width: 200px;">
+        <h2>Партия</h2>
+        <br>
+    </div>
+    <br>
+    <br>
+    <table class="table table-hover table-bordered" id="myTable">
+        <thead class="table-light">
+        <tr>
+            <th>Id Партии</th>
+            <th>Номер партии</th>
+            <th>Дата статуса</th>
+            <th>Статус</th>
+            <th>Исполнитель</th>
+            <th>Операция</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="hist:${history}">
+            <div th:each="pl1 : ${partylots1}">
+                <tr th:switch="${pl1.historyIdHistory}" th:case="${hist.idHistory}">
+                    <td th:text="${pl1.idPartylots}"></td>
+                    <td th:text="${pl1.lotNumber}"></td>
+                    <td th:text="${hist.dateOfStatus}"></td>
+                    <td th:text="${hist.status}"></td>
+                    <td th:text="${hist.executor}"></td>
+                    <td><a th:href="@{/view-lots/{lotNumber}/{idHistory}(lotNumber=${pl1.lotNumber},idHistory=${pl1.historyIdHistory})}" class="btn btn-dark">Посмотреть партию</a></td>
+                </tr>
+            </div>
+        </div>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

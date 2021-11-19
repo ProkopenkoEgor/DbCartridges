@@ -31,6 +31,12 @@ public class HistoryController {
         model.addAttribute("history", history);
         return "history-create";
     }
+    @PostMapping("/history-create1")
+    public String createHistory1(History history) {
+        historyServiceImpl.saveHistory(history);
+        String str = Integer.toString(history.getIdHistory());
+        return "redirect:/lotsHistory/" + str;
+    }
 
     @PostMapping("/history-create/{id}")
     public String createHistory(@PathVariable("id") Integer id,History history) {

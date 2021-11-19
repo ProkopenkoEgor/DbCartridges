@@ -1,6 +1,7 @@
 package com.example.springbootsbyt.model;
 
 import java.sql.Date;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -21,6 +22,20 @@ public class History {
     @Column(name = "cartridges_id")
     private Integer cartridgesId;
 
+    @Column(name = "executor")
+    private String executor;
+
+
+    public History() {
+    }
+
+    public History(Integer idHistory, Date dateOfStatus, String status, Integer cartridgesId, String executor) {
+        this.idHistory = idHistory;
+        this.dateOfStatus = dateOfStatus;
+        this.status = status;
+        this.cartridgesId = cartridgesId;
+        this.executor = executor;
+    }
 
     public Integer getIdHistory() {
         return idHistory;
@@ -54,4 +69,39 @@ public class History {
         this.cartridgesId = cartridgesId;
     }
 
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        History history = (History) o;
+        return Objects.equals(idHistory, history.idHistory) &&
+                Objects.equals(dateOfStatus, history.dateOfStatus) &&
+                Objects.equals(status, history.status) &&
+                Objects.equals(cartridgesId, history.cartridgesId) &&
+                Objects.equals(executor, history.executor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idHistory, dateOfStatus, status, cartridgesId, executor);
+    }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "idHistory=" + idHistory +
+                ", dateOfStatus=" + dateOfStatus +
+                ", status='" + status + '\'' +
+                ", cartridgesId=" + cartridgesId +
+                ", executor='" + executor + '\'' +
+                '}';
+    }
 }
