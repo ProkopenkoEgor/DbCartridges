@@ -64,7 +64,7 @@ public class PrintersController {
         return "redirect:/printers";
     }
     @GetMapping("/printers-update/{idPrinters}")
-    public String updatePrintersForm(@PathVariable("idPrinters") Integer id, Model model){
+    public String updatePrintersForm(@PathVariable("idPrinters") long id, Model model){
         Printers printers = printersServiceImpl.findById(id);
         List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
         model.addAttribute("printers",printers);
@@ -73,7 +73,7 @@ public class PrintersController {
     }
 
     @PostMapping("/printers-update/{idPrinters}")
-    public String updatePrinters(@PathVariable("idPrinters") int idPrinters,@Valid Printers printers,BindingResult bindingResult, Model model){
+    public String updatePrinters(@PathVariable("idPrinters") long idPrinters,@Valid Printers printers,BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             List<Manufacturers> manufacturers = manufacturerServiceImpl.findAll();
             model.addAttribute("manufacturers",manufacturers);
@@ -104,7 +104,7 @@ public class PrintersController {
     }
 
     @GetMapping("/printers-delete/{id}")
-    public String deletePrinters(@PathVariable("id") Integer id) {
+    public String deletePrinters(@PathVariable("id") long id) {
         printersServiceImpl.deleteById(id);
         return "redirect:/printers";
     }

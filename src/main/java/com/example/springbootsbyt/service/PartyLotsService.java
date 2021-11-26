@@ -7,13 +7,13 @@ import com.example.springbootsbyt.model.Printers;
 import java.util.List;
 
 public interface PartyLotsService {
-    public Partylots findById(Integer id);
+    public Partylots findById(Long id);
 
     public List<Partylots> findAll();
 
     public Partylots savePartylots(Partylots partylots);
 
-    public void deleteById(Integer id);
+    public void deleteById(Long id);
 
     public List<Partylots> findAllByLotNumber(String pl);
 
@@ -21,7 +21,7 @@ public interface PartyLotsService {
 
     public List<Partylots> findDsLotNumber();
 
-    public List<Partylots> findDsHistoryKeyword(int keyword);
+    public List<Partylots> findDsHistoryKeyword(long keyword);
 
     public List<Partylots> findDsHistory();
 }

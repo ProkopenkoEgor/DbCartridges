@@ -50,7 +50,7 @@
     </button>
 </div>
 <div class="modal fade" id="LotsHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form action="#" th:action="@{/history-create1}" th:object="${history}" method="post" id="addLots">
+    <form action="#" th:action="@{/history-create1}" th:object="${history}" method="post" id="addLots" onclick="submitLimit()">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,5 +95,16 @@
         </div>
     </form>
 </div>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('addLots1')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
 </body>
 </html>

@@ -45,7 +45,7 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/history-create/{id}(id=${id})}" th:object="${history}" method="post">
+<form action="#" th:action="@{/history-create/{id}(id=${id})}" th:object="${history}" method="post" onclick="submitLimit()">
             <td><input readonly type="hidden" th:field="*{idHistory}"></td>
     <div class="container ms-auto mt-5 fw-bold" >
         <div class="row mb-3">

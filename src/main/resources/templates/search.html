@@ -38,7 +38,7 @@
     <div class="mx-auto" style="width: 200px;">
         <h1>Поиск</h1>
     </div>
-    <form action="#" th:action="@{/search}" th:object = "${cartridges}" method="post">
+    <form action="#" th:action="@{/search}" th:object = "${cartridges}" method="post" onclick="submitLimit()">
         <div class="container ms-auto mt-5 fw-bold" >
             <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Поиск (Инвентарному, по заправкам, по городу, по моделям) </label>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </form>
-    <form action="#" th:action="@{/Data-Search}" th:object="${history}" method="post">
+    <form action="#" th:action="@{/Data-Search}" th:object="${history}" method="post" onclick="submitLimit()">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
             Поиск По Дате
         </a>
@@ -64,5 +64,6 @@
         </div>
     </form>
 </div>
+
 </body>
 </html>

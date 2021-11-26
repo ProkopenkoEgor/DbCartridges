@@ -16,11 +16,22 @@
 <div th:if="${param.logout}">
     Вы вышли из системы
 </div>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="post" onclick="submitLimit()">
     <div><label> Логин : <input type="text" name="username"/> </label></div>
     <div><label> Пароль: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Войти"/></div>
+    <div><input type="submit" value="Войти" id="Voiti"/></div>
 </form>
 </div>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('Voiti')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
 </body>
 </html>

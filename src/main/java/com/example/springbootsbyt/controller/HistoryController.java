@@ -25,17 +25,27 @@ public class HistoryController {
     }
 
     @GetMapping("/history-create/{id}")
-    public String createHistoryForm(@PathVariable("id") Integer id,Model model, History history) {
+    public String createHistoryForm(@PathVariable("id") long id,Model model, History history) {
         Cartridges cartridges = cartridgeServiceImpl.findById(id);
         model.addAttribute("cartridges", cartridges);
         model.addAttribute("history", history);
         return "history-create";
     }
+
     @PostMapping("/history-create1")
     public String createHistory1(History history) {
         historyServiceImpl.saveHistory(history);
-        String str = Integer.toString(history.getIdHistory());
+        String str = Long.toString(history.getIdHistory());
         return "redirect:/lotsHistory/" + str;
+    }
+
+    @PostMapping("/history-create2/{idHistory}/{lotNumber}")
+    public String createHistory2(@PathVariable("idHistory") long idHistory, @PathVariable("lotNumber") String lotNumber, History history) {
+        historyServiceImpl.saveHistory(history);
+        String str = Long.toString(idHistory);
+        String str1 = Long.toString(history.getIdHistory());
+        String str2 = lotNumber;
+        return "redirect:/ComparisonPartyLots/" + str + '/' + str1 + '/' + str2;
     }
 
     @PostMapping("/history-create/{id}")
@@ -46,7 +56,7 @@ public class HistoryController {
     }
 
     @GetMapping("/cartridge-moreInfo/history-update/{idHistory}/{id}")
-    public String updateHistoryForm(@PathVariable("idHistory") Integer idHistory,@PathVariable("id") Integer id, Model model){
+    public String updateHistoryForm(@PathVariable("idHistory") long idHistory,@PathVariable("id") Integer id, Model model){
         History history = historyServiceImpl.findById(idHistory);
         List<Cartridges> cartridges = cartridgeServiceImpl.findAll();
         model.addAttribute("history", history);
@@ -62,10 +72,10 @@ public class HistoryController {
     }
 
     @GetMapping("/cartridge-moreInfo/history-delete/{idHistory}/{id}")
-    public String deleteHistory(@PathVariable("idHistory") Integer idHistory, @PathVariable("id") Integer id){
+    public String deleteHistory(@PathVariable("idHistory") long idHistory, @PathVariable("id") Integer id){
         History history = historyServiceImpl.findById(idHistory);
         historyServiceImpl.deleteById(idHistory,history);
-        String str2 = Integer.toString(id);
+        String str2 = Long.toString(id);
         return "redirect:/cartridge-moreInfo/" + str2;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface HistoryService {
 
-    public History findById(Integer id);
+    public History findById(Long id);
 
     public List<History> findAll();
 
@@ -18,7 +18,7 @@ public interface HistoryService {
 
     public History saveHistoryUpdate(History history);
 
-    public void deleteById(Integer id, History history);
+    public void deleteById(Long id, History history);
 
     public List<History> findByDateOfStatus(@Param("Date") Date Date);
 }

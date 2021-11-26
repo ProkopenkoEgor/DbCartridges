@@ -11,7 +11,7 @@ public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idHistory;
+    private Long idHistory;
 
     @Column(name = "date_of_status")
     private Date dateOfStatus;
@@ -20,7 +20,7 @@ public class History {
     private String status;
 
     @Column(name = "cartridges_id")
-    private Integer cartridgesId;
+    private Long cartridgesId;
 
     @Column(name = "executor")
     private String executor;
@@ -29,7 +29,7 @@ public class History {
     public History() {
     }
 
-    public History(Integer idHistory, Date dateOfStatus, String status, Integer cartridgesId, String executor) {
+    public History(Long idHistory, Date dateOfStatus, String status, Long cartridgesId, String executor) {
         this.idHistory = idHistory;
         this.dateOfStatus = dateOfStatus;
         this.status = status;
@@ -37,11 +37,11 @@ public class History {
         this.executor = executor;
     }
 
-    public Integer getIdHistory() {
+    public Long getIdHistory() {
         return idHistory;
     }
 
-    public void setIdHistory(Integer idHistory) {
+    public void setIdHistory(Long idHistory) {
         this.idHistory = idHistory;
     }
 
@@ -61,11 +61,11 @@ public class History {
         this.status = status;
     }
 
-    public Integer getCartridgesId() {
+    public Long getCartridgesId() {
         return cartridgesId;
     }
 
-    public void setCartridgesId(Integer cartridgesId) {
+    public void setCartridgesId(Long cartridgesId) {
         this.cartridgesId = cartridgesId;
     }
 

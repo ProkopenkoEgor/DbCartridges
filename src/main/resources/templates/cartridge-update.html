@@ -45,7 +45,7 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/cartridge-update/{id}(id=${id})}" th:object="${cartridges}" method="post">
+<form action="#" th:action="@{/cartridge-update/{id}(id=${id})}" th:object="${cartridges}" method="post" onclick="submitLimit()">
             <tr>
                 <td><input readonly type="hidden" th:field="${id}"></td>
             </tr>
@@ -104,10 +104,17 @@
                     <label for="cartrsIdCartrs" class="col-sm-2 col-form-label">Выберите модель картриджа</label>
                     <div class="col-sm-7">
                         <select class="form-select w-50" th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs" required>
-                            <option th:each="cart : ${cartrs}"
-                                    th:value="${cart.idCartrs}"
-                                    th:text="${cart.typeCartr}">
-                            </option>
+                            <div th:each="manu:${manufacturers}">
+                                <div th:each="print:${printers}">
+                                    <div th:each="cart:${cartrs}">
+                                        <div th:if="${cart.printersIdPrinters} == ${print.idPrinters} and ${print.modelsIdModels} == ${manu.idModels} ">
+                                            <option th:value="${cart.idCartrs}"
+                                                    th:text="${manu.modelFromPrinters} + ' | ' + ${cart.typeCartr} + ' | ' + ${print.typePrinters}">
+                                            </option>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </select>
                     </div>
                 </div>

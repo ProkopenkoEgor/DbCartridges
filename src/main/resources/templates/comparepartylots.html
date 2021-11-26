@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Финальная версия партии</title>
+    <title>Сравнение партий</title>
     <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
@@ -17,15 +17,6 @@
             pointer-events:none!important;
         }
     </style>
-<!--    <script type="text/javascript" language="javascript">-->
-<!--        function DisableBackButton() {-->
-<!--            window.history.forward()-->
-<!--        }-->
-<!--        DisableBackButton();-->
-<!--        window.onload = DisableBackButton;-->
-<!--        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }-->
-<!--        window.onunload = function() { void (0) }-->
-<!--    </script>-->
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -54,15 +45,26 @@
 </nav>
 <div class="container-fluid">
     <div class="container ms-auto mt-5 fw-bold" >
-        <form action="#" th:action="@{/CreatePartyLots/{idHistory}/{lotNumber}(idHistory=${idHistory},lotNumber=${lotNumber})}" th:object="${partylots}" method="post" id="addNumberLots" onclick="submitLimit()">
+        <form action="#" th:action="@{/Compare/{lotNumber}/{idHistory}/{idHistoryReturn}(idHistory=${idHistory},lotNumber=${lotNumber},idHistoryReturn=${idHistoryReturn})}" th:object="${partylots}" method="post" id="addNumberLots" onclick="submitLimit()">
             <div class="row mb-3">
                 <div th:each="hist:${history}" th:switch="${idHistory}" th:case="${hist.idHistory}">
-                    <label for="historyIdHistory" class="col-sm-2 col-form-label">Статус</label>
+                    <label for="historyIdHistory" class="col-sm-2 col-form-label">Дата отправки партии</label>
                     <div class="col-sm-7">
                         <input readonly type="hidden" class="form-control w-50" name="historyIdHistory"
                                th:text="${hist.dateOfStatus} + ' || ' + ${hist.status} + ' || ' + ${hist.executor}"
                                th:value="${idHistory}"
                                id="historyIdHistory">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div th:each="hist:${history1}" th:switch="${idHistoryReturn}" th:case="${hist.idHistory}">
+                    <label for="historyIdHistoryReturn" class="col-sm-2 col-form-label">Дата принятия партии</label>
+                    <div class="col-sm-7">
+                        <input readonly type="hidden" class="form-control w-50" name="historyIdHistoryReturn"
+                               th:text="${hist.dateOfStatus} + ' || ' + ${hist.status} + ' || ' + ${hist.executor}"
+                               th:value="${idHistoryReturn}"
+                               id="historyIdHistoryReturn">
                     </div>
                 </div>
             </div>
@@ -82,96 +84,86 @@
             </div>
             <div hidden class="row mb-3">
                 <label for="partyStatus" class="col-sm-2 col-form-label">Статус партии</label>
-                <input type="number" class="form-control w-50" th:field="*{partyStatus}" th:value="*{partyStatus=0}" id="partyStatus">
+                    <input type="number" class="form-control w-50" th:field="*{partyStatus}" th:value="*{partyStatus=0}" id="partyStatus">
             </div>
-            <input  type="submit" id="addNumberLots1" value="Записать картридж" class="btn btn-primary">
+            <input  type="submit" id="addNumberLots1" value="Проверить картридж" class="btn btn-primary">
         </form>
     </div>
     <br>
     <br>
     <div class="mx-auto" style="width: 200px;">
         <h2>Партия</h2>
-        <br>
     </div>
-    <table class="table table-hover table-bordered" id="myTable">
-        <thead class="table-light">
-        <tr>
-            <th>Id Партии</th>
-            <th>Номер партии</th>
-            <th>Id Картриджа</th>
-            <th>Инвентарный номер</th>
-            <th>Город</th>
-            <th>Исполнитель</th>
-            <th>Модель картриджа</th>
-            <th>Чип</th>
-            <th>Модель принтера</th>
-            <th>Производитель</th>
-            <th>Количество заправок</th>
-            <th>Ресурс</th>
-            <th>Комментарии</th>
-            <th>Операция</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="pl : ${partylots1}">
-            <td th:text="${pl.idPartylots}"></td>
-            <td th:text="${pl.lotNumber}"></td>
-            <td th:text="${pl.cartridgesId}"></td>
-            <div th:each="cartridge :${cartridges}" th:switch="${pl.cartridgesId}" th:case="${cartridge.id}">
-                <td th:text="${cartridge.inventoryNumber}" id="foobar"></td>
-                <td th:text="${cartridge.city}"></td>
-                <td th:text="${cartridge.executor}"></td>
-                <div th:each="cartr:${cartrs}" th:switch="${cartr.idCartrs}" th:case="${cartridge.cartrsIdCartrs}">
-                    <td th:text="${cartr.typeCartr}"></td>
-                    <td th:text="${cartr.chip}"></td>
-                    <div th:each="print:${printers}" th:switch="${cartr.printersIdPrinters}" th:case="${print.idPrinters}">
-                        <td th:text="${print.typePrinters}"></td>
-                        <div th:each="man:${manufacturers}" th:switch="${print.modelsIdModels}" th:case="${man.idModels}">
-                            <td th:text="${modelFromPrinters}"></td>
+        <br>
+        <br>
+        <br>
+        <table class="table table-hover table-bordered" id="myTable">
+            <thead class="table-light">
+            <tr>
+                <th>Статус партии</th>
+                <th>Id Партии</th>
+                <th>Номер партии</th>
+                <th>Id Картриджа</th>
+                <th>Инвентарный номер</th>
+                <th>Город</th>
+                <th>Исполнитель</th>
+                <th>Модель картриджа</th>
+                <th>Чип</th>
+                <th>Модель принтера</th>
+                <th>Производитель</th>
+                <th>Количество заправок</th>
+                <th>Ресурс</th>
+                <th>Комментарии</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pl : ${partylots1}">
+            <div >
+                <td th:if="${pl.partyStatus == 0}"
+                    style="color: red">Не дошло</td>
+                <td th:if="${pl.partyStatus == 1}"
+                    style="color: limegreen">Картридж пришёл</td>
+                <td th:text="${pl.idPartylots}"></td>
+                <td th:text="${pl.lotNumber}"></td>
+                <td th:text="${pl.cartridgesId}"></td>
+                <div th:each="cartridge :${cartridges}" th:switch="${pl.cartridgesId}" th:case="${cartridge.id}">
+                    <td th:text="${cartridge.inventoryNumber}" id="foobar"></td>
+                    <td th:text="${cartridge.city}"></td>
+                    <td th:text="${cartridge.executor}"></td>
+                    <div th:each="cartr:${cartrs}" th:switch="${cartr.idCartrs}" th:case="${cartridge.cartrsIdCartrs}">
+                        <td th:text="${cartr.typeCartr}"></td>
+                        <td th:text="${cartr.chip}"></td>
+                        <div th:each="print:${printers}" th:switch="${cartr.printersIdPrinters}" th:case="${print.idPrinters}">
+                            <td th:text="${print.typePrinters}"></td>
+                            <div th:each="man:${manufacturers}" th:switch="${print.modelsIdModels}" th:case="${man.idModels}">
+                                <td th:text="${modelFromPrinters}"></td>
+                            </div>
                         </div>
                     </div>
+                    <td th:text="${cartridge.count}"></td>
+                    <td th:text="${cartridge.resource}"></td>
+                    <td th:text="${cartridge.comments}"></td>
                 </div>
-                <td th:text="${cartridge.count}"></td>
-                <td th:text="${cartridge.resource}"></td>
-                <td th:text="${cartridge.comments}"></td>
-            </div>
-            <td><a th:href="@{/lots-delete/{idPartylots}/{idHistory}/{lotNumber}(idPartylots=${pl.idPartylots},idHistory=${idHistory},lotNumber=${pl.lotNumber})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                Удалить
-            </a></td>
-        </tr>
-        </tbody>
-    </table>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="container-fluid ms-auto fw-bold">
-    <form action="#" th:action="@{/main}" method="get">
+    <form action="#" th:action="@{/main/{idHistory}/{idHistoryReturn}/{lotNumber}(idHistory=${idHistory},lotNumber=${lotNumber},idHistoryReturn=${idHistoryReturn})}" method="post">
         <div class="row mb-3">
             <div class="col-sm-7">
-                <label for="chck" class="col-sm-2 col-form-label">Нажмите если хотите отправить партию</label>
+                <label for="chck" class="col-sm-2 col-form-label">Нажмите если хотите закончить работу с партией</label>
                 <input type="checkbox" id="chck">
             </div>
             <div class="col-sm-7">
-                <button id="but" class="btn btn-primary btn-disable">Отправить партию</button>
+                <button id="but" class="btn btn-primary btn-disable">Закончить сравнение партий</button>
             </div>
         </div>
     </form>
 </div>
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Подтверждение удаления</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Вы уверены, что хотите удалить эту запись?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                <a href="" class="btn btn-primary" id="delRef">Да, удалить</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 <script>
     let but = document.getElementById("but");
     document.getElementById("chck").onclick = function() {
@@ -186,20 +178,10 @@
     const cartridgesId = document.getElementById('cartridgesId');
     form.addEventListener('submit', e => {
         const cartridgesIdValue = cartridgesId.value.trim();
-        let table1 = document.getElementById('myTable');
-        let firstChilds = table1.querySelectorAll('#foobar');
-        let allName = [];
-        for(let i=0; i<firstChilds.length; ++i){
-            allName.push(firstChilds[i].innerHTML);
-        }
-        let modelka = null;
-        for (let i=0;i<allName.length;i++) {
-            modelka = allName[i];
-            if (cartridgesIdValue.toString() === modelka.toString() || cartridgesIdValue === '') {
-                setErrorFor(cartridgesId, 'Поле не может быть пустым или такой картридж уже внесён');
+            if (cartridgesIdValue === '') {
+                setErrorFor(cartridgesId, 'Поле не может быть пустым');
                 e.preventDefault();
             }
-        }
     });
     function setErrorFor(input, message) {
         const formControl = input.parentElement;

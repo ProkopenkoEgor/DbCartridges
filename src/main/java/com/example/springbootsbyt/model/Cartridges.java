@@ -10,7 +10,7 @@ public class Cartridges {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Поле не может быть пустым")
     @Digits(integer = 15,fraction = 0,message = "Неверный ввод, ожидается только цифры(не более 15 цифр)")
@@ -35,17 +35,17 @@ public class Cartridges {
     private String executor;
 
     @Column(name = "cartrs_id_cartrs")
-    private Integer cartrsIdCartrs;
+    private Long cartrsIdCartrs;
 
     @PositiveOrZero(message = "Число не должно быть меньше нуля")
     @Column(name = "count")
     private Integer count;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -97,11 +97,11 @@ public class Cartridges {
         this.executor = executor;
     }
 
-    public Integer getCartrsIdCartrs() {
+    public Long getCartrsIdCartrs() {
         return cartrsIdCartrs;
     }
 
-    public void setCartrsIdCartrs(Integer cartrsIdCartrs) {
+    public void setCartrsIdCartrs(Long cartrsIdCartrs) {
         this.cartrsIdCartrs = cartrsIdCartrs;
     }
 

@@ -18,7 +18,7 @@ public class PrintersServiceImpl implements PrintersService {
         this.printersRepository = printersRepository;
     }
 
-    public Printers findById(Integer id){
+    public Printers findById(Long id){
         return printersRepository.findById(id).orElse(null);
     }
 
@@ -30,7 +30,7 @@ public class PrintersServiceImpl implements PrintersService {
         return printersRepository.save(printers);
     }
 
-    public void deleteById(Integer id){
+    public void deleteById(Long id){
         printersRepository.deleteById(id);
     }
 

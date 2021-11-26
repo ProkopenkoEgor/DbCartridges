@@ -19,7 +19,7 @@ public class PartyLotsServiceImpl implements PartyLotsService {
     }
 
     @Override
-    public Partylots findById(Integer id) {
+    public Partylots findById(Long id) {
         return partyLotsRepository.findById(id).orElse(null);
     }
 
@@ -34,7 +34,7 @@ public class PartyLotsServiceImpl implements PartyLotsService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         partyLotsRepository.deleteById(id);
     }
 
@@ -49,7 +49,7 @@ public class PartyLotsServiceImpl implements PartyLotsService {
         return partyLotsRepository.findDsLotNumber();
     }
 
-    public List<Partylots> findDsHistoryKeyword(int keyword){
+    public List<Partylots> findDsHistoryKeyword(long keyword){
         return partyLotsRepository.findDsHistoryKeyword(keyword);
     }
 

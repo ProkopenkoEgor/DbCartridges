@@ -8,15 +8,16 @@
     <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
-    <script type="text/javascript" language="javascript">
-        function DisableBackButton() {
-            window.history.forward()
-        }
-        DisableBackButton();
-        window.onload = DisableBackButton;
-        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
-        window.onunload = function() { void (0) }
-    </script>
+
+<!--    <script type="text/javascript" language="javascript">-->
+<!--        function DisableBackButton() {-->
+<!--            window.history.forward()-->
+<!--        }-->
+<!--        DisableBackButton();-->
+<!--        window.onload = DisableBackButton;-->
+<!--        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }-->
+<!--        window.onunload = function() { void (0) }-->
+<!--    </script>-->
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -50,7 +51,7 @@
     </button>
 </div>
     <div class="modal fade" id="NumberLotsHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <form action="#" th:action="@{/lotsNumber/{idHistory}(idHistory=${idHistory})}" th:object="${partylots}" method="post" id="addNumberLots">
+        <form action="#" th:action="@{/lotsNumber/{idHistory}(idHistory=${idHistory})}" th:object="${partylots}" method="post" id="addNumberLots" onclick="submitLimit()">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -86,5 +87,16 @@
                 </div>
         </form>
     </div>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('addNumberLots1')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
 </body>
 </html>

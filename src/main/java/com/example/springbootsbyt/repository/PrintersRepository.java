@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PrintersRepository extends JpaRepository<Printers,Integer> {
+public interface PrintersRepository extends JpaRepository<Printers,Long> {
 
 }

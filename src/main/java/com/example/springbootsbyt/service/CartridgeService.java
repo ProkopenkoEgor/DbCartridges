@@ -11,13 +11,13 @@ import java.util.List;
 
 public interface CartridgeService  {
 
-    public Cartridges findById(Integer id);
+    public Cartridges findById(Long id);
 
     public List<Cartridges> findAll();
 
     public Cartridges saveCartridge(Cartridges cartridge);
 
-    public void deleteById(Integer id);
+    public void deleteById(Long id);
 
     public List<Cartridges> findAll(String keyword);
 

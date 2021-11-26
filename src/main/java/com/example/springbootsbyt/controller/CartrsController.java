@@ -55,7 +55,7 @@ public class CartrsController {
     }
 
     @GetMapping("cartrs-update/{idCartrs}")
-    public String updateCartrsForm(@PathVariable("idCartrs") int id, Model model) {
+    public String updateCartrsForm(@PathVariable("idCartrs") long id, Model model) {
         Cartrs cartrs = cartrsServiceImpl.findById(id);
         List<Printers> printers = printersServiceImpl.findAll();
         model.addAttribute("cartrs", cartrs);
@@ -64,7 +64,7 @@ public class CartrsController {
     }
 
     @PostMapping("/cartrs-update/{idCartrs}")
-    public String updateUser(@PathVariable("idCartrs") int id, @Valid Cartrs cartrs, BindingResult bindingResult,Model model) {
+    public String updateUser(@PathVariable("idCartrs") long id, @Valid Cartrs cartrs, BindingResult bindingResult,Model model) {
         if(bindingResult.hasErrors()){
             List<Printers> printers = printersServiceImpl.findAll();
             model.addAttribute("printers", printers);
@@ -75,7 +75,7 @@ public class CartrsController {
     }
 
     @GetMapping("cartrs-delete/{idCartrs}")
-    public String deleteCartrs(@PathVariable("idCartrs") int id) {
+    public String deleteCartrs(@PathVariable("idCartrs") long id) {
         cartrsServiceImpl.deleteById(id);
         return "redirect:/cartrs";
     }

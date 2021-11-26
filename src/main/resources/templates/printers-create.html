@@ -45,7 +45,7 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/printers-create}" th:object="${printers}" method="post">
+<form action="#" th:action="@{/printers-create}" th:object="${printers}" method="post" onclick="submitLimit()">
     <div class="container ms-auto mt-5 fw-bold" >
         <tr>
             <td><input readonly type="hidden" th:field="*{idPrinters}"></td>
@@ -69,8 +69,21 @@
                 </select>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary mt-2" value="Создать модель принтера">
+        <input type="submit" class="btn btn-primary mt-2" value="Создать модель принтера" id="printerCreate">
     </div>
 </form>
+
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('printerCreate')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+
 </body>
 </html>

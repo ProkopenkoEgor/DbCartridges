@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface CartrsService {
 
-    public Cartrs findById(Integer id);
+    public Cartrs findById(Long id);
 
     public List<Cartrs> findAll();
 
     public Cartrs saveCartrs(Cartrs cartrs);
 
-    public void deleteById(Integer id);
+    public void deleteById(Long id);
 
 }

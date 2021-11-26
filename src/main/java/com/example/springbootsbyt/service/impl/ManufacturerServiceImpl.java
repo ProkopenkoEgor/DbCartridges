@@ -17,7 +17,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         this.manufacturerRepository = manufacturerRepository;
     }
 
-    public Manufacturers findById(Integer id){
+    public Manufacturers findById(Long id){
         return manufacturerRepository.findById(id).orElse(null);
     }
 
@@ -29,7 +29,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         return manufacturerRepository.save(manufacturers);
     }
 
-    public void deleteById(Integer id){
+    public void deleteById(Long id){
         manufacturerRepository.deleteById(id);
     }
 

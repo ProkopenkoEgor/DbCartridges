@@ -12,32 +12,44 @@ public class Partylots {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPartylots;
+    private Long idPartylots;
 
     @Column(name = "lot_number")
     private String lotNumber;
 
     @Column(name = "cartridges_id")
-    private Integer cartridgesId;
+    private Long cartridgesId;
 
     @Column(name = "history_id_history")
-    private Integer historyIdHistory;
+    private Long historyIdHistory;
+
+    @Column(name = "party_status")
+    private Long partyStatus;
+
+    @Column(name = "party_comments")
+    private String partyComments;
+
+    @Column(name = "history_id_history_return")
+    private Long historyIdHistoryReturn;
 
     public Partylots() {
     }
 
-    public Partylots(Integer idPartylots, String lotNumber, Integer cartridgesId, Integer historyIdHistory) {
+    public Partylots(Long idPartylots, String lotNumber, Long cartridgesId, Long historyIdHistory, Long partyStatus, String partyComments, Long historyIdHistoryReturn) {
         this.idPartylots = idPartylots;
         this.lotNumber = lotNumber;
         this.cartridgesId = cartridgesId;
         this.historyIdHistory = historyIdHistory;
+        this.partyStatus = partyStatus;
+        this.partyComments = partyComments;
+        this.historyIdHistoryReturn = historyIdHistoryReturn;
     }
 
-    public Integer getIdPartylots() {
+    public Long getIdPartylots() {
         return idPartylots;
     }
 
-    public void setIdPartylots(Integer idPartylots) {
+    public void setIdPartylots(Long idPartylots) {
         this.idPartylots = idPartylots;
     }
 
@@ -49,20 +61,44 @@ public class Partylots {
         this.lotNumber = lotNumber;
     }
 
-    public Integer getCartridgesId() {
+    public Long getCartridgesId() {
         return cartridgesId;
     }
 
-    public void setCartridgesId(Integer cartridgesId) {
+    public void setCartridgesId(Long cartridgesId) {
         this.cartridgesId = cartridgesId;
     }
 
-    public Integer getHistoryIdHistory() {
+    public Long getHistoryIdHistory() {
         return historyIdHistory;
     }
 
-    public void setHistoryIdHistory(Integer historyIdHistory) {
+    public void setHistoryIdHistory(Long historyIdHistory) {
         this.historyIdHistory = historyIdHistory;
+    }
+
+    public Long getPartyStatus() {
+        return partyStatus;
+    }
+
+    public void setPartyStatus(Long partyStatus) {
+        this.partyStatus = partyStatus;
+    }
+
+    public String getPartyComments() {
+        return partyComments;
+    }
+
+    public void setPartyComments(String partyComments) {
+        this.partyComments = partyComments;
+    }
+
+    public Long getHistoryIdHistoryReturn() {
+        return historyIdHistoryReturn;
+    }
+
+    public void setHistoryIdHistoryReturn(Long historyIdHistoryReturn) {
+        this.historyIdHistoryReturn = historyIdHistoryReturn;
     }
 
     @Override
@@ -73,12 +109,15 @@ public class Partylots {
         return Objects.equals(idPartylots, partylots.idPartylots) &&
                 Objects.equals(lotNumber, partylots.lotNumber) &&
                 Objects.equals(cartridgesId, partylots.cartridgesId) &&
-                Objects.equals(historyIdHistory, partylots.historyIdHistory);
+                Objects.equals(historyIdHistory, partylots.historyIdHistory) &&
+                Objects.equals(partyStatus, partylots.partyStatus) &&
+                Objects.equals(partyComments, partylots.partyComments) &&
+                Objects.equals(historyIdHistoryReturn, partylots.historyIdHistoryReturn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idPartylots, lotNumber, cartridgesId, historyIdHistory);
+        return Objects.hash(idPartylots, lotNumber, cartridgesId, historyIdHistory, partyStatus, partyComments, historyIdHistoryReturn);
     }
 
     @Override
@@ -88,6 +127,9 @@ public class Partylots {
                 ", lotNumber='" + lotNumber + '\'' +
                 ", cartridgesId=" + cartridgesId +
                 ", historyIdHistory=" + historyIdHistory +
+                ", partyStatus=" + partyStatus +
+                ", partyComments='" + partyComments + '\'' +
+                ", historyIdHistoryReturn=" + historyIdHistoryReturn +
                 '}';
     }
 }

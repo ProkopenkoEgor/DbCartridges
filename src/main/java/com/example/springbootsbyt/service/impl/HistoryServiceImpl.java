@@ -27,7 +27,7 @@ public class HistoryServiceImpl implements HistoryService {
         this.cartridgeServiceImpl = cartridgeServiceImpl;
     }
 
-    public History findById(Integer id) {
+    public History findById(Long id) {
         return historyRepository.findById(id).orElse(null);
     }
 
@@ -53,7 +53,7 @@ public class HistoryServiceImpl implements HistoryService {
         return historyRepository.save(history);
     }
 
-    public void deleteById(Integer id,History history) {
+    public void deleteById(Long id,History history) {
         String str4 = history.getStatus();
         Cartridges cartridge = null;
         List<Cartridges> cartridges1 = cartridgeServiceImpl.findAll();

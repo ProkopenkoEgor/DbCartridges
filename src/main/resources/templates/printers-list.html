@@ -128,7 +128,7 @@
     </div>
 </div>
 <div class="modal fade" id="CreateManufacturers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form action="#" th:action="@{/create-model}" th:object="${manufacturers}" method="post" id="addmanufacturers">
+    <form action="#" th:action="@{/create-model}" th:object="${manufacturers}" method="post" id="addmanufacturers" onclick="submitLimit()">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -196,6 +196,17 @@
     }
 </script>
 
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('manufacturers')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
 
 <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
 </body>

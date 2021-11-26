@@ -10,7 +10,7 @@ public class Manufacturers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idModels;
+    private Long idModels;
 
     @Column(name = "model_from_printers")
     private String modelFromPrinters;
@@ -18,16 +18,16 @@ public class Manufacturers {
     public Manufacturers() {
     }
 
-    public Manufacturers(Integer idModels, String modelFromPrinters) {
+    public Manufacturers(Long idModels, String modelFromPrinters) {
         this.idModels = idModels;
         this.modelFromPrinters = modelFromPrinters;
     }
 
-    public Integer getIdModels() {
+    public Long getIdModels() {
         return idModels;
     }
 
-    public void setIdModels(Integer idModels) {
+    public void setIdModels(Long idModels) {
         this.idModels = idModels;
     }
 

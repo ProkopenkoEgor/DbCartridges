@@ -45,7 +45,7 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/printers-update/{idPrinters}(idPrinters=${idPrinters})}" th:object="${printers}" method="post">
+<form action="#" th:action="@{/printers-update/{idPrinters}(idPrinters=${idPrinters})}" th:object="${printers}" method="post" onclick="submitLimit()">
     <div class="container ms-auto mt-5 fw-bold" >
         <tr>
             <td><input readonly type="hidden" th:field="*{idPrinters}"></td>
@@ -61,7 +61,7 @@
         <div class="row mb-3">
             <label for="executor" class="col-sm-2 col-form-label">Исполнитель</label>
             <div class="col-sm-7">
-                <input type="text" class="mb-3" id="executor" name="executor">
+                <input type="text" class="form-control w-50" id="executor" name="executor">
             </div>
         </div>
         <div class="row mb-3">
@@ -75,8 +75,19 @@
                 </select>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary mt-2" value="Исправить модель принтера">
+        <input type="submit" class="btn btn-primary mt-2" value="Исправить модель принтера" id="printerUpdate">
     </div>
 </form>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('printerUpdate')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
 </body>
 </html>

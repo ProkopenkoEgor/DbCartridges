@@ -49,7 +49,8 @@
             <th>Дата статуса</th>
             <th>Статус</th>
             <th>Исполнитель</th>
-            <th>Операция</th>
+            <th>Операция 1</th>
+            <th>Операция 2</th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +63,7 @@
                     <td th:text="${hist.status}"></td>
                     <td th:text="${hist.executor}"></td>
                     <td><a th:href="@{/view-lots/{lotNumber}/{idHistory}(lotNumber=${pl1.lotNumber},idHistory=${pl1.historyIdHistory})}" class="btn btn-dark">Посмотреть партию</a></td>
+                    <td><a th:href="@{/ComparePartyLots/{idHistory}/{lotNumber}(lotNumber=${pl1.lotNumber},idHistory=${pl1.historyIdHistory})}" class="btn btn-dark">Сравнить партию</a></td>
                 </tr>
             </div>
         </div>

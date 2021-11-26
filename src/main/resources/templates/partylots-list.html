@@ -73,7 +73,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pl : ${partylots}">
+        <tr th:each="pl : ${partylots1}">
             <td th:text="${pl.idPartylots}"></td>
             <td th:text="${pl.lotNumber}"></td>
             <td th:text="${pl.cartridgesId}"></td>
@@ -101,6 +101,17 @@
         </tr>
         </tbody>
     </table>
+    <form action="#" th:action="@{/main}" method="get">
+        <div class="row mb-3">
+            <div class="col-sm-7">
+                <label for="chck" class="col-sm-2 col-form-label">Нажмите если хотите отправить партию</label>
+                <input type="checkbox" id="chck">
+            </div>
+            <div class="col-sm-7">
+                <button id="but" class="btn btn-primary btn-disable">Отправить партию</button>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="modal fade" id="UpdatePartylots" tabindex="-1" aria-labelledby="UpdatePartylotsLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -113,7 +124,7 @@
             </div>
             <div class="modal-body">
                 <div class="container ms-auto mt-5 fw-bold" >
-                    <form action="#" th:action="@{/view-lots/{lotNumber}/{idHistory}(idHistory=${idHistory},lotNumber=${lotNumber})}" th:object="${partylots}" method="post" id="addNumberLots">
+                    <form action="#" th:action="@{/view-lots/{lotNumber}/{idHistory}(idHistory=${idHistory},lotNumber=${lotNumber})}" th:object="${partylots}" method="post" id="addNumberLots" onclick="submitLimit()">
                         <div class="row mb-3">
                             <div th:each="hist:${history}" th:switch="${idHistory}" th:case="${hist.idHistory}">
                                 <label for="historyIdHistory" class="col-sm-2 col-form-label">Статус</label>
@@ -134,25 +145,19 @@
                         <div class="row mb-3">
                             <label for="cartridgesId" class="col-sm-2 col-form-label">Картридж</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control w-50" name="cartridgesId" id="cartridgesId">
+                                <input type="text" class="form-control w-50" th:field="*{cartridgesId}" name="cartridgesId" id="cartridgesId">
+                                <div style="color:red" th:if="${#fields.hasErrors('cartridgesId')}" th:errors="*{cartridgesId}">Name Error</div>
                                 <small style="color:red;"></small>
                             </div>
+                        </div>
+                        <div hidden class="row mb-3">
+                            <label for="partyStatus" class="col-sm-2 col-form-label">Статус партии</label>
+                            <input type="number" class="form-control w-50" th:field="*{partyStatus}" th:value="*{partyStatus=0}" id="partyStatus">
                         </div>
                         <input  type="submit" id="addNumberLots1" value="Записать картридж" class="btn btn-primary">
                         <br>
                     </form>
                     <br>
-                    <form action="#" th:action="@{/main}" method="get">
-                        <div class="row mb-3">
-                            <div class="col-sm-7">
-                                <label for="chck" class="col-sm-2 col-form-label">Нажмите если хотите отправить партию</label>
-                                <input type="checkbox" id="chck">
-                            </div>
-                            <div class="col-sm-7">
-                                <button id="but" class="btn btn-primary btn-disable">Отправить партию</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
             <div class="modal-footer">
@@ -217,6 +222,18 @@
         formControl.className = 'form-control error';
         small.innerText = message;
     }
+</script>
+
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('addNumberLots1')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
 </script>
 
 <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>

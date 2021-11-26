@@ -13,29 +13,29 @@ public class Printers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPrinters;
+    private Long idPrinters;
 
     @NotBlank(message = "Поле не может быть пустым")
     @Column(unique = true, name = "type_printers")
     private String typePrinters;
 
     @Column(name = "models_id_models")
-    private Integer modelsIdModels;
+    private Long modelsIdModels;
 
     public Printers() {
     }
 
-    public Printers(Integer idPrinters, String typePrinters, Integer modelsIdModels) {
+    public Printers(Long idPrinters, String typePrinters, Long modelsIdModels) {
         this.idPrinters = idPrinters;
         this.typePrinters = typePrinters;
         this.modelsIdModels = modelsIdModels;
     }
 
-    public Integer getIdPrinters() {
+    public Long getIdPrinters() {
         return idPrinters;
     }
 
-    public void setIdPrinters(Integer idPrinters) {
+    public void setIdPrinters(Long idPrinters) {
         this.idPrinters = idPrinters;
     }
 
@@ -47,11 +47,11 @@ public class Printers {
         this.typePrinters = typePrinters;
     }
 
-    public Integer getModelsIdModels() {
+    public Long getModelsIdModels() {
         return modelsIdModels;
     }
 
-    public void setModelsIdModels(Integer modelsIdModels) {
+    public void setModelsIdModels(Long modelsIdModels) {
         this.modelsIdModels = modelsIdModels;
     }
 

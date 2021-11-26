@@ -12,7 +12,7 @@ public class Cartrs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCartrs;
+    private Long idCartrs;
 
     @Column(name = "chip")
     private String chip;
@@ -22,13 +22,13 @@ public class Cartrs {
     private String typeCartr;
 
     @Column(name = "printers_id_printers")
-    private Integer printersIdPrinters;
+    private Long printersIdPrinters;
 
-    public Integer getIdCartrs() {
+    public Long getIdCartrs() {
         return idCartrs;
     }
 
-    public void setIdCartrs(Integer idCartrs) {
+    public void setIdCartrs(Long idCartrs) {
         this.idCartrs = idCartrs;
     }
 
@@ -48,18 +48,18 @@ public class Cartrs {
         this.typeCartr = typeCartr;
     }
 
-    public Integer getPrintersIdPrinters() {
+    public Long getPrintersIdPrinters() {
         return printersIdPrinters;
     }
 
-    public void setPrintersIdPrinters(Integer printersIdPrinters) {
+    public void setPrintersIdPrinters(Long printersIdPrinters) {
         this.printersIdPrinters = printersIdPrinters;
     }
 
     public Cartrs() {
            }
 
-    public Cartrs(Integer idCartrs, String chip, String typeCartr, Integer printersIdPrinters) {
+    public Cartrs(Long idCartrs, String chip, String typeCartr, Long printersIdPrinters) {
         this.idCartrs = idCartrs;
         this.chip = chip;
         this.typeCartr = typeCartr;

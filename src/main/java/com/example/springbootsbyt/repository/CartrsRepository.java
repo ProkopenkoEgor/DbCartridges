@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CartrsRepository extends JpaRepository<Cartrs, Integer> {
+public interface CartrsRepository extends JpaRepository<Cartrs, Long> {
 
 }

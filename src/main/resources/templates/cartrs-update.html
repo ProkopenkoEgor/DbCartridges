@@ -45,7 +45,7 @@
         </div>
     </div>
 </nav>
-<form action="#" th:action="@{/cartrs-update/{idCartrs}(idCartrs=${idCartrs})}" th:object="${cartrs}" method="post">
+<form action="#" th:action="@{/cartrs-update/{idCartrs}(idCartrs=${idCartrs})}" th:object="${cartrs}" method="post" onclick="submitLimit()">
     <tr>
         <td><input readonly type="hidden" th:field="${idCartrs}"></td>
     </tr>

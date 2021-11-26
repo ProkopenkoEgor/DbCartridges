@@ -40,7 +40,7 @@ public class ManufacturerController {
     }
 
     @GetMapping("/models-delete/{idModels}")
-    public String deleteModels(@PathVariable("idModels") Integer id) {
+    public String deleteModels(@PathVariable("idModels") long id) {
         manufacturerServiceImpl.deleteById(id);
         return "redirect:/printers";
     }
