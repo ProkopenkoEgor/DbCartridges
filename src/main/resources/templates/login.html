@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <title>Вход</title>
+</head>
+<body>
+
+<div class="mx-auto" style="width: 200px;">
+<div th:if="${param.error}">
+    Неверный логин или пароль
+</div>
+<div th:if="${param.logout}">
+    Вы вышли из системы
+</div>
+<form th:action="@{/login}" method="post" onclick="submitLimit()">
+    <div><label> Логин : <input type="text" name="username"/> </label></div>
+    <div><label> Пароль: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="Войти" id="Voiti"/></div>
+</form>
+</div>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('Voiti')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+</body>
+</html>

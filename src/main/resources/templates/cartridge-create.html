@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <title>Создать картридж</title>
+    <script type="text/javascript" language="javascript">
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function() { void (0) }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search">Поиск</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<form action="#" th:action="@{/cartridge-create}" th:object="${cartridges}" method="post" onclick="submitLimit()">
+        <div class="container ms-auto mt-5 fw-bold" >
+            <div class="row mb-3">
+                    <label for="inventoryNumber" class="col-sm-2 col-form-label">Инвентарный номер*</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control w-50"  th:field="*{inventoryNumber}"
+                           id="inventoryNumber">
+                    <div style="color:red" th:if="${#fields.hasErrors('inventoryNumber')}" th:errors="*{inventoryNumber}">Name Error</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="resource" class="col-sm-2 col-form-label">Ресурс*</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control w-50"  th:field="*{resource}"
+                           id="resource">
+                    <div style="color:red" th:if="${#fields.hasErrors('resource')}" th:errors="*{resource}">Name Error</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="city" class="col-sm-2 col-form-label">Город</label>
+                <div class="col-sm-7">
+                    <select class="form-select w-50" th:field="*{city}" id="city" required>
+                        <option value="Минск">Минск</option>
+                        <option value="Молодечно">Молодечно</option>
+                        <option value="Вилейка">Вилейка</option>
+                        <option value="Слуцк">Слуцк</option>
+                        <option value="Солигорск">Солигорск</option>
+                        <option value="Столбцы">Столбцы</option>
+                        <option value="Клецк">Клецк</option>
+                        <option value="Пуховичи">Пуховичи</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="executor" class="col-sm-2 col-form-label">Исполнитель</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control w-50" th:field="*{executor}" id="executor">
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="comments" class="col-sm-2 col-form-label">Описание</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control w-50" th:field="*{comments}" id="comments">
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <label for="count" class="col-sm-2 col-form-label">Количество заправок</label>
+                <div class="col-sm-7">
+                    <input type="number" class="form-control w-50" th:field="*{count}" th:value="*{count=0}" id="count">
+                    <div style="color:red" th:if="${#fields.hasErrors('count')}" th:errors="*{count}">Name Error</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                     <label for="cartrsIdCartrs" class="col-sm-2 col-form-label">Выберите модель картриджа</label>
+                <div class="col-sm-7">
+                    <select class="form-select w-50" th:field="*{cartrsIdCartrs}" id="cartrsIdCartrs" required>
+                        <div th:each="manu:${manufacturers}">
+                            <div th:each="print:${printers}">
+                                <div th:each="cart:${cartrs}">
+                                    <div th:if="${cart.printersIdPrinters} == ${print.idPrinters} and ${print.modelsIdModels} == ${manu.idModels} ">
+                                        <option th:value="${cart.idCartrs}"
+                                                th:text="${manu.modelFromPrinters} + ' | ' + ${cart.typeCartr} + ' | ' + ${print.typePrinters}">
+                                        </option>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </select>
+                </div>
+            </div>
+                <input type="submit" class="btn btn-primary mt-2" value="Создать картридж" id="cartridgeCreate">
+        </div>
+</form>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('cartridgeCreate')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+</body>
+</html>
