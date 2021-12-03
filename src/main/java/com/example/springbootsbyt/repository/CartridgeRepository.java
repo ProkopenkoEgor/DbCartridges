@@ -23,4 +23,5 @@ public interface CartridgeRepository extends JpaRepository<Cartridges, Long> {
 
     List<Cartridges> findAllByInventoryNumber(String barcode);
 
+    Cartridges findByInventoryNumber(String inv);
 }

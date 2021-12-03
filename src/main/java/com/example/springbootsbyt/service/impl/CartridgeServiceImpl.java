@@ -42,7 +42,12 @@ public class CartridgeServiceImpl implements CartridgeService {
     public List<Cartridges> findAll(String keyword){
         return cartridgeRepository.findAll(keyword);
     }
+
     public List<Cartridges> findAllByInventoryNumber(String barcode){
         return cartridgeRepository.findAllByInventoryNumber(barcode);
+    }
+
+    public Cartridges findByInventoryNumber(String inv){
+        return cartridgeRepository.findByInventoryNumber(inv);
     }
 }

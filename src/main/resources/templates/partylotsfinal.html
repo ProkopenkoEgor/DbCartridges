@@ -75,7 +75,7 @@
             <div class="row mb-3">
                 <label for="cartridgesId" class="col-sm-2 col-form-label">Картридж</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control w-50" th:field="*{cartridgesId}" name="cartridgesId" id="cartridgesId">
+                    <input type="text" class="form-control w-50" th:field="*{cartridgesId}" name="cartridgesId" id="cartridgesId" autofocus>
                     <div style="color:red" th:if="${#fields.hasErrors('cartridgesId')}" th:errors="*{cartridgesId}">Name Error</div>
                     <small style="color:red;"></small>
                 </div>

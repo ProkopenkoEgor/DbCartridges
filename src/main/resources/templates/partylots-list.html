@@ -56,6 +56,7 @@
     <table class="table table-hover table-bordered" id="myTable">
         <thead class="table-light">
         <tr>
+            <th>Статус картриджа</th>
             <th>Id Партии</th>
             <th>Номер партии</th>
             <th>Id Картриджа</th>
@@ -69,11 +70,18 @@
             <th>Количество заправок</th>
             <th>Ресурс</th>
             <th>Комментарии</th>
-            <th>Операция</th>
+            <th>Операция удаления</th>
+            <th>Операция комментария</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pl : ${partylots1}">
+        <tr th:each="pl : ${partylots1}" >
+            <td th:if="${pl.partyStatus == 0}"
+                style="color: red">Картридж не пришёл</td>
+            <td th:if="${pl.partyStatus == 1}"
+                style="color: limegreen">Картридж пришёл</td>
+            <td th:if="${pl.partyStatus == 2}"
+                style="color: limegreen">Картридж пришёл</td>
             <td th:text="${pl.idPartylots}"></td>
             <td th:text="${pl.lotNumber}"></td>
             <td th:text="${pl.cartridgesId}"></td>
@@ -93,10 +101,13 @@
                 </div>
                 <td th:text="${cartridge.count}"></td>
                 <td th:text="${cartridge.resource}"></td>
-                <td th:text="${cartridge.comments}"></td>
+                <td style="width: 150px;word-wrap: break-word;max-width: 150px" th:text="${pl.partyComments}"></td>
             </div>
             <td><a th:href="@{/lots1-delete/{idPartylots}/{idHistory}/{lotNumber}(idPartylots=${pl.idPartylots},idHistory=${idHistory},lotNumber=${pl.lotNumber})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 Удалить
+            </a></td>
+           <td><a th:href="@{/addComments/{idHistory}/{lotNumber}/{idPartylots}(idHistory=${idHistory},lotNumber=${pl.lotNumber},idPartylots=${pl.idPartylots})}" class="btn btn-dark">
+                Добавить комментарий
             </a></td>
         </tr>
         </tbody>

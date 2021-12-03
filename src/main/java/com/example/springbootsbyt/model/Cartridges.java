@@ -13,7 +13,7 @@ public class Cartridges {
     private Long id;
 
     @NotBlank(message = "Поле не может быть пустым")
-    @Digits(integer = 15,fraction = 0,message = "Неверный ввод, ожидается только цифры(не более 15 цифр)")
+    @Digits(integer = 19,fraction = 0,message = "Неверный ввод, ожидается только цифры(не более 19 цифр)")
     @Column(name = "inventory_number")
     private String inventoryNumber;
 

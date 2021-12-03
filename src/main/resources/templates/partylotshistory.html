@@ -74,7 +74,8 @@
                                 <div class="row mb-3">
                                     <label for="lotNumber" class="col-sm-2 col-form-label">Номер партии</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control w-50"  id="lotNumber" name="lotNumber">
+                                        <input type="text" class="form-control w-50" th:field="*{lotNumber}" id="lotNumber" name="lotNumber">
+                                        <div style="color:red" th:if="${#fields.hasErrors('lotNumber')}" th:errors="*{lotNumber}">Name Error</div>
                                     </div>
                                 </div>
                             </div>

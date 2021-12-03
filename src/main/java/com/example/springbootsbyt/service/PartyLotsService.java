@@ -24,4 +24,7 @@ public interface PartyLotsService {
     public List<Partylots> findDsHistoryKeyword(long keyword);
 
     public List<Partylots> findDsHistory();
+
+    public List<Partylots> findAllByCartridgesId(long keyword);
+
 }
