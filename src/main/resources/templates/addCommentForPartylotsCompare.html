@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+    <title>Добавление комментария</title>
+    <script type="text/javascript" language="javascript">
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function() { void (0) }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search">Поиск</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <br>
+    <table class="table table-hover table-bordered" id="myTable">
+        <thead class="table-light">
+        <tr>
+            <th>Статус картриджа</th>
+            <th>Номер партии</th>
+            <th>Инвентарный номер</th>
+            <th>Город</th>
+            <th>Исполнитель</th>
+            <th>Модель картриджа</th>
+            <th>Чип</th>
+            <th>Модель принтера</th>
+            <th>Производитель</th>
+            <th>Количество заправок</th>
+            <th>Ресурс</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pl : ${partylots}">
+            <td th:if="${pl.partyStatus == 0}"
+                style="color: red">Картридж не пришёл</td>
+            <td th:if="${pl.partyStatus == 1}"
+                style="color: limegreen">Картридж пришёл</td>
+            <td th:if="${pl.partyStatus == 2}"
+                style="color: limegreen">Картридж пришёл</td>
+            <td th:text="${pl.lotNumber}"></td>
+            <div th:each="cartridge :${cartridges}" th:switch="${pl.cartridgesId}" th:case="${cartridge.id}">
+                <td th:text="${cartridge.inventoryNumber}" id="foobar"></td>
+                <td th:text="${cartridge.city}"></td>
+                <td th:text="${cartridge.executor}"></td>
+                <div th:each="cartr:${cartrs}" th:switch="${cartr.idCartrs}" th:case="${cartridge.cartrsIdCartrs}">
+                    <td th:text="${cartr.typeCartr}"></td>
+                    <td th:text="${cartr.chip}"></td>
+                    <div th:each="print:${printers}" th:switch="${cartr.printersIdPrinters}" th:case="${print.idPrinters}">
+                        <td th:text="${print.typePrinters}"></td>
+                        <div th:each="man:${manufacturers}" th:switch="${print.modelsIdModels}" th:case="${man.idModels}">
+                            <td th:text="${modelFromPrinters}"></td>
+                        </div>
+                    </div>
+                </div>
+                <td th:text="${cartridge.count}"></td>
+                <td th:text="${cartridge.resource}"></td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+    <form action="#" th:action="@{/addCommentsCompare/{idHistory}/{idHistoryReturn}/{lotNumber}/{idPartylots}(idHistory=${idHistory},idHistoryReturn=${idHistoryReturn},lotNumber=${lotNumber},idPartylots=${idPartylots})}" th:object="${partylots}" method="post" onclick="submitLimit()">
+        <div class="container ms-auto mt-5 fw-bold">
+            <div class="row mb-3">
+                <input readonly type="hidden" th:field="*{partyStatus}"  name="partyStatus" id="partyStatus1">
+            </div>
+            <div class="row mb-3">
+                <input readonly type="hidden" th:field="*{cartridgesId}"  name="cartridgesId" id="cartridgesId1">
+            </div>
+            <div class="row mb-3">
+                <input readonly type="hidden" th:field="*{historyIdHistory}"  name="historyIdHistory" id="historyIdHistory1">
+            </div>
+            <div class="row mb-3">
+                <input readonly type="hidden" th:field="*{historyIdHistoryReturn}"  name="historyIdHistoryReturn" id="historyIdHistoryReturn1">
+            </div>
+            <div class="row mb-3">
+                <label for="partyComments" class="form-label">Добавление комментария</label>
+                <div class="col-sm-7">
+                    <textarea autofocus class="form-control" rows="4"  th:field="*{partyComments}"
+                              id="partyComments"></textarea>
+                </div>
+            </div>
+            <td><input class="btn btn-primary mt-3" type="submit" id="addComments" value="Сохранить комментарий"></td>
+        </div>
+    </form>
+</div>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('addComments')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+</body>
+</html>

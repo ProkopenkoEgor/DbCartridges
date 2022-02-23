@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор партии</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="mx-auto" style="width: 200px;">
+        <h2>Просмотр партий по номеру</h2>
+    </div>
+    <table class="table table-hover table-bordered" id="myTable1">
+        <thead class="table-light">
+        <tr>
+            <th>Номер партии</th>
+            <th>Дата отправки</th>
+            <th>Дата принятия</th>
+            <th>Статус</th>
+            <th>Исполнитель</th>
+            <th>Статус партии</th>
+            <th>Операция просмотра</th>
+            <th>Операция сравнения</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="pl1 : ${partylots1}">
+            <div th:each="hist:${history}" th:switch="${hist.idHistory}" th:case="${pl1.historyIdHistory}">
+                <tr>
+                    <td th:text="${pl1.lotNumber}"></td>
+                    <td th:text="${hist.dateOfStatus}" id="killBill"></td>
+                    <div th:if="${pl1.historyIdHistoryReturn != null}">
+                        <div th:each="hist:${history}" th:switch="${hist.idHistory}" th:case="${pl1.historyIdHistoryReturn}">
+                            <td th:text="${hist.dateOfStatus}" id="killBill1"></td>
+                        </div>
+                    </div>
+                    <td th:if="${pl1.historyIdHistoryReturn == null}">-----</td>
+                    <td th:text="${hist.status}"></td>
+                    <td th:text="${hist.executor}"></td>
+                    <td th:if="${pl1.partyStatus == 2}" style="color: limegreen">Партия закрыта</td>
+                    <td th:if="${pl1.partyStatus == 1}" style="color: red">Партия не закрыта</td>
+                    <td th:if="${pl1.partyStatus == 0}" style="color: red">Партия не закрыта</td>
+                    <td th:if="${pl1.partyStatus == 3}" style="color: magenta">Партия на списании</td>
+                    <td th:if="${pl1.partyStatus == 4}" style="color: magenta">Партия на списании</td>
+                    <td th:if="${pl1.partyStatus == 5}" style="color: blue">Партия утилизирована</td>
+                    <td><a th:href="@{/view-lots/{lotNumber}/{idHistory}(lotNumber=${pl1.lotNumber},idHistory=${pl1.historyIdHistory})}" class="btn btn-primary">Посмотреть партию</a></td>
+                    <td th:if="${pl1.partyStatus == 0 or pl1.partyStatus == 1}"><a th:href="@{/ComparePartyLots/{idHistory}/{lotNumber}(lotNumber=${pl1.lotNumber},idHistory=${pl1.historyIdHistory})}" class="btn btn-dark">Принять партию</a></td>
+                    <td th:if="${pl1.partyStatus == 2}">Партия закрыта</td>
+                    <td th:if="${pl1.partyStatus == 3 or pl1.partyStatus == 4}"><a th:href="@{/ComparePartyLots/{idHistory}/{lotNumber}(idHistory=${pl1.historyIdHistory},lotNumber=${pl1.lotNumber})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">Отправить в утиль</a></td>
+                    <td th:if="${pl1.partyStatus == 5}">Партия утилизирована</td>
+                </tr>
+            </div>
+        </div>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подтверждение утилизации</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите отправитль эту партию в утиль?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="" class="btn btn-primary" id="delRef">Да, отправить</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function () {
+        let table = $('#myTable1').DataTable( {
+            paging: false,
+            info: false,
+            "language": {
+                "search": "Поиск:",
+                "zeroRecords":"Ничего не найдено"
+            }
+        } );
+    })
+</script>
+<script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+</body>
+</html>

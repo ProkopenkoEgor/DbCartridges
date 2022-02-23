@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Модели</title>
+    <title>Типы принтеров</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search">Поиск</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+<div th:switch="${printers}">
+    <h2 th:case="null">Типы принтеров не найдены!</h2>
+    <div th:case="*">
+        <div class="mx-auto" style="width: 200px;">
+            <h2>Принтеры</h2>
+            <p><a class="btn btn-primary btn-sm" href="/printers-create">Создать модель принтера</a></p>
+            <button type="button" class="btn btn-primary" href="/printers-list" data-bs-toggle="modal" data-bs-target="#Proizvoditeli">
+                Прозводители
+            </button>
+        </div>
+        <table class="table table-hover table-bordered" id="myTable">
+            <thead class="table-light">
+            <tr>
+                <th>Модель принтера</th>
+                <th>Производитель</th>
+                <th>Операция 1</th>
+                <th>Операция 2</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="print : ${printers}">
+                <td th:text="${print.typePrinters}"></td>
+                <td th:switch="${print.modelsIdModels}" th:case="null" th:text="-----"></td>
+                <td th:each="model:${manufacturers}"
+                    th:switch="${print.modelsIdModels}"
+                    th:case="${model.idModels}"
+                    th:text="${model.modelFromPrinters}"></td>
+                <td><a th:href="@{printers-update/{id}(id=${print.idPrinters})}" class="btn btn-dark">Изменить</a></td>
+                <td><a th:href="@{printers-delete/{id}(id=${print.idPrinters})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="Proizvoditeli" tabindex="-1" aria-labelledby="ProizvoditeliLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ProizvoditeliLabel">Производители</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button type="button" class="btn btn-primary" href="/printers-list" data-bs-toggle="modal" data-bs-target="#CreateManufacturers">
+                    Внести производителя
+                </button>
+                <br>
+                <br>
+                <table class="table table-hover table-bordered" id="models">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Производитель</th>
+                        <th>Операции</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="model : ${manufacturers}">
+                        <td th:text="${model.modelFromPrinters}"></td>
+                        <td><a th:href="@{models-delete/{idModels}(idModels=${model.idModels})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">Удалить</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить эту запись?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="" class="btn btn-primary" id="delRef">Да, удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CreateManufacturers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form action="#" th:action="@{/create-model}" th:object="${manufacturers}" method="post" id="addmanufacturers" onclick="submitLimit()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Внесение производителя</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="modelFromPrinters" class="col-form-label">Производитель</label>
+                            <input type="text" class="mb-3" id="modelFromPrinters" name="modelFromPrinters">
+                            <br>
+                            <small style="color:red;"></small>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                    <input  type="submit" id="manufacturers" value="Создать Производителя" class="btn btn-primary">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable( {
+            paging: false,
+            info: false,
+            "language": {
+                "search": "Поиск:",
+                "zeroRecords":"Ничего не найдено"
+            }
+        } );
+    })
+</script>
+<script>
+    const form = document.getElementById('addmanufacturers');
+    const modelFromPrinters = document.getElementById('modelFromPrinters');
+    form.addEventListener('submit', e => {
+        const modelFromPrintersValue = modelFromPrinters.value.trim();
+        let table1 = document.getElementById('models');
+        let firstChilds = table1.querySelectorAll("td:first-child");
+        let allName = [];
+        for(let i=0; i<firstChilds.length; ++i){
+            allName.push(firstChilds[i].innerHTML);
+        }
+        let modelka = null;
+        for (let i=0;i<allName.length;i++) {
+            modelka = allName[i];
+            if (modelFromPrintersValue.toString() === modelka.toString() || modelFromPrintersValue === '') {
+                setErrorFor(modelFromPrinters, 'Поле не может быть пустым или такой производитель уже есть');
+                e.preventDefault();
+            }
+        }
+    });
+    function setErrorFor(input, message) {
+        const formControl = input.parentElement;
+        const small = formControl.querySelector('small');
+        formControl.className = 'form-control error';
+        small.innerText = message;
+    }
+</script>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('manufacturers')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+<script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+</body>
+</html>
