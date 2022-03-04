@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!--th:style="'font-weight: bold;'"-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Картриджи</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search">Поиск</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div th:switch="${cartridges}" >
+        <h2 th:case="null">Картриджи не найдены!</h2>
+        <div th:case="*">
+            <div class="mx-auto" style="width: 200px;">
+                <br>
+                <h2>Картриджи</h2>
+                <div hidden>
+                    <span th:text="${firstSelect}"></span>
+                    <span th:text="${dt1}"></span>
+                    <span th:text="${dt2}"></span>
+                </div>
+                <br>
+                <p><a class="btn btn-primary btn-sm" th:href="@{/cartridge-Export-Excel-CartridgesBySearch/{firstSelect}/{dt1}/{dt2}(firstSelect=${firstSelect},dt1=${dt1},dt2=${dt2})}">Экспортировать в Excel</a></p>
+                <br>
+            </div>
+            <table class="table table-hover table-bordered" id="myTable">
+                <thead class="table-light">
+                <tr>
+                    <th class="text-center">Статус картриджа</th>
+                    <th class="text-center">Дата статуса</th>
+                    <th class="text-center">Инвентарный номер</th>
+                    <th class="text-center">Модель Картриджа</th>
+                    <th class="text-center">Модель принтера</th>
+                    <th class="text-center">Производитель</th>
+                    <th class="text-center">Чип</th>
+                    <th class="text-center">Ресурс</th>
+                    <th class="text-center">Город</th>
+                    <th class="text-center">Исполнитель</th>
+                    <th class="text-center">Комментарии</th>
+                    <th class="text-center">Колличество заправок</th>
+                    <th class="text-center">Операция</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="cartridge : ${cartridges}">
+                    <tr>
+                        <div th:each="pl:${partylots}" th:switch="${cartridge.id}" th:case="${pl.cartridgesId}">
+                            <td th:if="${pl.partyStatus == 0}"
+                                style="color: red">в заправке</td>
+                            <td th:if="${pl.partyStatus == 1}"
+                                style="color: limegreen">в работе</td>
+                            <td th:if="${pl.partyStatus == 2}"
+                                style="color: limegreen">в работе</td>
+                            <td th:if="${pl.partyStatus == 3}"
+                                style="color: magenta">на списании</td>
+                            <td th:if="${pl.partyStatus == 4}"
+                                style="color: blue">утилизирован</td>
+                            <td th:if="${pl.partyStatus == 5}"
+                                style="color: blue">утилизирован</td>
+
+                        <div th:each="hist:${history}" th:switch="${hist.idHistory}" th:case="${pl.historyIdHistory}">
+                            <div th:if="${pl.historyIdHistoryReturn == null}">
+                                <td th:text="${hist.dateOfStatus}"></td>
+                            </div>
+                            <div th:if="${pl.historyIdHistoryReturn != null}">
+                                <div th:each="hist:${history}" th:switch="${hist.idHistory}" th:case="${pl.historyIdHistoryReturn}">
+                                    <td th:text="${hist.dateOfStatus}"></td>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <td th:text="${cartridge.inventoryNumber}"></td>
+                        <div th:switch="${cartridge.cartrsIdCartrs}" th:case="null">
+                            <td th:text="-----"></td>
+                            <td th:text="-----"></td>
+                            <td th:text="-----"></td>
+                            <td th:text="-----"></td>
+                        </div>
+                        <div th:each="cart:${cartrs}" th:switch="${cartridge.cartrsIdCartrs}" th:case="${cart.idCartrs}">
+                            <td th:text="${cart.typeCartr}"></td>
+                        </div>
+                        <div th:each="cart:${cartrs}" th:switch="${cartridge.cartrsIdCartrs}" th:case="${cart.idCartrs}">
+                            <div th:switch="${cart.printersIdPrinters}" th:case="null">
+                                <td th:text="-----"></td>
+                                <td th:text="-----"></td>
+                            </div>
+                            <div th:each="print:${printers}" th:switch="${cart.printersIdPrinters}" th:case="${print.idPrinters}">
+                                <td th:text="${print.typePrinters}"></td>
+                            </div>
+                        </div>
+                        <div th:each="cart:${cartrs}" th:switch="${cartridge.cartrsIdCartrs}" th:case="${cart.idCartrs}">
+                            <div th:each="print:${printers}" th:switch="${cart.printersIdPrinters}" th:case="${print.idPrinters}">
+                                <div th:switch="${print.modelsIdModels}" th:case="null">
+                                    <td th:text="-----"></td>
+                                </div>
+                                <div th:each="man:${manufacturers}" th:switch="${print.modelsIdModels}" th:case="${man.idModels}">
+                                    <td th:text="${man.modelFromPrinters}"></td>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:each="cart:${cartrs}" th:switch="${cartridge.cartrsIdCartrs}" th:case="${cart.idCartrs}">
+                            <td th:text="${cart.chip}"></td>
+                        </div>
+                        <td th:text="${cartridge.resource}"></td>
+                        <td th:text="${cartridge.city}"></td>
+                        <td th:text="${cartridge.executor}"></td>
+                        <td th:text="${cartridge.comments}"></td>
+                        <td th:text="${cartridge.count}"></td>
+                        <td><a th:href="@{cartridge-moreInfo/{id}(id=${cartridge.id})}" class="btn btn-info">Подробнее</a></td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function () {
+        let table = $('#myTable').DataTable( {
+            paging: false,
+            info: false,
+            "language": {
+                "search": "Поиск:",
+                "zeroRecords":"Ничего не найдено"
+            }
+        } );
+    })
+</script>
+<script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+</body>
+</html>

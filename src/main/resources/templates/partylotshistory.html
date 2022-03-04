@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание Статуса</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+    <style>
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+    <script type="text/javascript" language="javascript">
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function() { void (0) }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges">Картриджи</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="mx-auto" style="width: 200px;">
+    <h2>Создание номера партии</h2>
+</div>
+<div class="container ms-auto mt-5 fw-bold" >
+    <form action="#" th:action="@{/lotsNumber/{idHistory}(idHistory=${idHistory})}" th:object="${partylots}" method="post" id="addNumberLots" onclick="submitLimit()">
+        <div class="row mb-3">
+            <div th:each="hist:${history}" th:switch="${idHistory}" th:case="${hist.idHistory}">
+                <label for="historyIdHistory" class="col-sm-2 col-form-label">Статус</label>
+                <div class="col-sm-7">
+                        <input readonly type="hidden" class="form-control w-50" name="historyIdHistory"
+                               th:text="${hist.dateOfStatus} + ' || ' + ${hist.status} + ' || ' + ${hist.executor}"
+                               th:value="${idHistory}"
+                                id="historyIdHistory">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="lotNumber" class="col-sm-2 col-form-label">Номер партии</label>
+            <div class="col-sm-7">
+                <input type="number" class="form-control w-50" th:field="*{lotNumber}" id="lotNumber" name="lotNumber">
+                <div style="color:red" th:if="${#fields.hasErrors('lotNumber')}" th:errors="*{lotNumber}">Name Error</div>
+            </div>
+        </div>
+    <input  type="submit" id="addNumberLots1" value="Сохранить номер для партии" class="btn btn-primary">
+    </form>
+</div>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('addNumberLots1')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+</body>
+</html>

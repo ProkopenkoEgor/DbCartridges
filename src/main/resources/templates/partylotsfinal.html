@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Финальная версия партии</title>
+    <link href="/webjars/bootstrap/5.1.0/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-html5-2.0.1/b-print-2.0.1/sp-1.4.0/datatables.min.js"></script>
+    <style>
+        .btn-disable{
+            user-select:none!important;
+            background-color:#ccc!important;
+            cursor:default!important;
+            outline:none!important;
+            pointer-events:none!important;
+        }
+    </style>
+    <script type="text/javascript" language="javascript">
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function() { void (0) }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/main" data-bs-toggle="modal" data-bs-target="#CheckRedirect1">На Главную страницу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartrs" data-bs-toggle="modal" data-bs-target="#CheckRedirect2">Модели картриджей</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/printers" data-bs-toggle="modal" data-bs-target="#CheckRedirect3">Модели принтеров</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cartridges" data-bs-toggle="modal" data-bs-target="#CheckRedirect4">Картриджи</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="container ms-auto mt-5 fw-bold" >
+        <form action="#" th:action="@{/CreatePartyLots/{idHistory}/{lotNumber}(idHistory=${idHistory},lotNumber=${lotNumber})}" th:object="${partylots}" method="post" id="addNumberLots" onclick="submitLimit()">
+            <div class="row mb-3">
+                <div th:each="hist:${history}" th:switch="${idHistory}" th:case="${hist.idHistory}">
+                    <label for="historyIdHistory" class="col-sm-2 col-form-label">Статус</label>
+                    <div class="col-sm-7">
+                        <input readonly type="hidden" class="form-control w-50" name="historyIdHistory"
+                               th:text="${hist.dateOfStatus} + ' || ' + ${hist.status} + ' || ' + ${hist.executor}"
+                               th:value="${idHistory}"
+                               id="historyIdHistory">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="lotNumber" class="col-sm-2 col-form-label">Номер партии</label>
+                <div class="col-sm-7">
+                    <input readonly type="hidden" class="form-control w-50" th:value="${lotNumber}" th:text="${lotNumber}" id="lotNumber" name="lotNumber">
+                </div>
+            </div>
+            <div class="row mb-3" th:object="${NewCartridge}">
+                <label for="inventoryNumber1" class="col-sm-2 col-form-label">Картридж</label>
+                <div class="col-sm-7">
+                    <input autofocus type="text" class="form-control w-50" th:field="*{inventoryNumber}" name="inventoryNumber" id="inventoryNumber1">
+                    <div style="color:red" th:if="${#fields.hasErrors('inventoryNumber')}" th:errors="*{inventoryNumber}">Name Error</div>
+                </div>
+                <div class="col-sm-7">
+                    <input readonly hidden type="number" class="form-control w-50" th:field="*{resource}" th:value="*{resource=0}"
+                           id="resource">
+                </div>
+            </div>
+            <div hidden class="row mb-3">
+                <label for="partyStatus" class="col-sm-2 col-form-label">Статус партии</label>
+                <input type="number" class="form-control w-50" th:field="*{partyStatus}" th:value="*{partyStatus=0}" id="partyStatus">
+            </div>
+            <input  type="submit" id="addNumberLots1" value="Записать картридж" class="btn btn-primary">
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="mx-auto" style="width: 200px;">
+        <h2>Партия</h2>
+        <br>
+    </div>
+    <table class="table table-hover table-bordered" id="myTable">
+        <thead class="table-light">
+        <tr>
+            <th>Номер партии</th>
+            <th>Инвентарный номер</th>
+            <th>Город</th>
+            <th>Исполнитель</th>
+            <th>Модель картриджа</th>
+            <th>Чип</th>
+            <th>Модель принтера</th>
+            <th>Производитель</th>
+            <th>Количество заправок</th>
+            <th>Ресурс</th>
+            <th>Комментарии</th>
+            <th>Операция</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pl : ${partylots1}">
+            <td th:text="${pl.lotNumber}"></td>
+            <div th:each="cartridge :${cartridges}" th:switch="${pl.cartridgesId}" th:case="${cartridge.id}">
+                <td th:text="${cartridge.inventoryNumber}" id="foobar"></td>
+                <td th:text="${cartridge.city}"></td>
+                <td th:text="${cartridge.executor}"></td>
+                <div th:each="cartr:${cartrs}" th:switch="${cartr.idCartrs}" th:case="${cartridge.cartrsIdCartrs}">
+                    <td th:text="${cartr.typeCartr}"></td>
+                    <td th:text="${cartr.chip}"></td>
+                    <div th:each="print:${printers}" th:switch="${cartr.printersIdPrinters}" th:case="${print.idPrinters}">
+                        <td th:text="${print.typePrinters}"></td>
+                        <div th:each="man:${manufacturers}" th:switch="${print.modelsIdModels}" th:case="${man.idModels}">
+                            <td th:text="${modelFromPrinters}"></td>
+                        </div>
+                    </div>
+                </div>
+                <td th:text="${cartridge.count}"></td>
+                <td th:text="${cartridge.resource}"></td>
+                <td th:text="${cartridge.comments}"></td>
+            </div>
+            <td><a th:href="@{/lots-delete/{idPartylots}/{idHistory}/{lotNumber}(idPartylots=${pl.idPartylots},idHistory=${idHistory},lotNumber=${pl.lotNumber})}" type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Удалить
+            </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container-fluid ms-auto fw-bold">
+    <form action="#" th:action="@{/main/{lotNumber}/{idHistory}(lotNumber=${lotNumber},idHistory=${idHistory})}" method="post">
+        <div class="row mb-3">
+            <div class="col-sm-7">
+                <label for="chck" class="col-sm-2 col-form-label">Нажмите если хотите отправить партию</label>
+                <input type="checkbox" id="chck">
+            </div>
+            <div class="col-sm-7">
+                <button id="but" class="btn btn-primary btn-disable">Отправить партию</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить эту запись?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="" class="btn btn-primary" id="delRef">Да, удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CheckRedirect1" tabindex="-1" aria-labelledby="CheckRedirectModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CheckRedirectModalLabel1">Подтверждение перехода</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что отправили партию???
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="/main" class="btn btn-primary">Да, перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CheckRedirect2" tabindex="-1" aria-labelledby="CheckRedirectModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CheckRedirectModalLabel2">Подтверждение перехода</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что отправили партию???
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="/cartrs" class="btn btn-primary">Да, перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CheckRedirect3" tabindex="-1" aria-labelledby="CheckRedirectModalLabel3" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CheckRedirectModalLabel3">Подтверждение перехода</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что отправили партию???
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="/printers" class="btn btn-primary">Да, перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CheckRedirect4" tabindex="-1" aria-labelledby="CheckRedirectModalLabel4" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CheckRedirectModalLabel4">Подтверждение перехода</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что отправили партию???
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <a href="/cartridges" class="btn btn-primary">Да, перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let but = document.getElementById("but");
+    document.getElementById("chck").onclick = function() {
+        this.checked
+            ? but.classList.remove("btn-disable")
+            : but.classList.add("btn-disable");
+    };
+</script>
+<script>
+    function submitLimit() {
+        let btn = document.getElementById('addNumberLots1')
+        setTimeout(function() {
+            btn.setAttribute('disabled', 'disabled');
+        }, 1);
+
+        setTimeout(function() {
+            btn.removeAttribute('disabled');
+        }, 300);}
+</script>
+<script>
+    $(document).ready( function () {
+        let table = $('#myTable').DataTable( {
+            paging: false,
+            info: false,
+            "language": {
+                "search": "Поиск:",
+                "zeroRecords":"Ничего не найдено"
+            }
+        } );
+    })
+</script>
+<script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+</body>
+</html>
